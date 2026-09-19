@@ -2,6 +2,7 @@
 import hashlib
 import json
 import mimetypes
+import os
 import subprocess
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -44,6 +45,12 @@ def run_pipeline(target_timestamp=None):
         if target_timestamp and snapshot_timestamp() == target_timestamp:
             return SNAPSHOT.read_bytes(), "already_current"
 
+        env = os.environ.copy()
+        if target_timestamp:
+            env["DANASAFE_TARGET_TIMESTAMP"] = target_timestamp
+        else:
+            env.pop("DANASAFE_TARGET_TIMESTAMP", None)
+
         for script in PIPELINE:
             print(f"[DanaSafeContainer] stage={script}", flush=True)
             subprocess.run(
@@ -51,6 +58,7 @@ def run_pipeline(target_timestamp=None):
                 cwd=ENGINE,
                 check=True,
                 timeout=STAGE_TIMEOUT_SECONDS,
+                env=env,
             )
 
         if not SNAPSHOT.exists():
