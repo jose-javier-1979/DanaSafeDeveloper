@@ -85,6 +85,10 @@ jobs:
         run: |
           python3 Tests/verify_v82.py
 
+      - name: DanaSafe 8.2 independent retention verification
+        run: |
+          python3 Tests/verify_v82_independent.py
+
       - name: Cloudflare TypeScript typecheck
         run: |
           cd CloudflareV51
