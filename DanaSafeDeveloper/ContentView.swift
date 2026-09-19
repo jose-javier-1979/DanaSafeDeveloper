@@ -363,6 +363,7 @@ struct ToolsView: View {
                         LabeledContent("Worker version", value: version)
                     }
                     LabeledContent("AEMET", value: model.latestAEMETInfo)
+                    LabeledContent("R2 histórico", value: model.historyStatus)
                     Button("Comprobar Cloudflare + AEMET") {
                         Task { await model.checkCloudflare() }
                     }
@@ -385,7 +386,7 @@ struct ToolsView: View {
                 Section("Runtime isolation") {
                     LabeledContent("Runtime", value: "Cloudflare HTTPS only")
                     LabeledContent("Local service", value: "DISABLED")
-                    Text("DanaSafe 8.1 does not contact the Mac developer server. It keeps the validated production Cloudflare endpoint from 6.4 and computes Nowcast locally when the Worker snapshot has no nowcast block.")
+                    Text("DanaSafe 8.2 does not contact the Mac developer server. It keeps the validated production Cloudflare endpoint from 6.4 and computes Nowcast locally when the Worker snapshot has no nowcast block.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -424,10 +425,10 @@ struct ToolsView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                Section("Version 8.1 data contract") {
-                    Text("Cloudflare HTTPS is the only network path. DanaSafe 8.1 keeps the validated production endpoint unchanged; the live Worker version is reported dynamically above.")
+                Section("Version 8.2 data contract") {
+                    Text("Cloudflare HTTPS is the only network path. DanaSafe 8.2 keeps the validated production endpoint unchanged; the live Worker version is reported dynamically above.")
                         .font(.caption)
-                    Text("8.1 validated-backend mode: POST /radar/refresh accepts the current synchronous 200 snapshot and retains compatibility with a 202 queued response followed by /radar/refresh-status. If the Worker does not publish nowcast, DanaSafe derives it from the same ten live radar frames on-device.")
+                    Text("8.2 validated-backend mode: POST /radar/refresh accepts the current synchronous 200 snapshot and retains compatibility with a 202 queued response followed by /radar/refresh-status. Before LIVE advances, the Worker archives the atomic snapshot, manifest and the ten raw AEMET frames in R2 and verifies their existence. If the Worker does not publish nowcast, DanaSafe derives it from the same ten live radar frames on-device.")
                         .font(.caption)
                 }
             }
