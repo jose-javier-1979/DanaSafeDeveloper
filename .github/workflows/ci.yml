@@ -79,7 +79,7 @@ jobs:
 
       - name: Python syntax validation
         run: |
-          python3 -m compileall -q Engine Tests Tools CloudflareV51/container
+          python3 -m compileall -q Engine Tests Tools CloudflareV82/container
 
       - name: DanaSafe 8.2 archive verifier
         run: |
@@ -91,7 +91,7 @@ jobs:
 
       - name: Cloudflare TypeScript typecheck
         run: |
-          cd CloudflareV51
+          cd CloudflareV82
           npm install
           npm run typecheck
 
