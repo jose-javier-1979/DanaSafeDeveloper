@@ -1,0 +1,173 @@
+name: DanaSafe CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: danasafe-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate source and fixtures
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          swift --version
+          python3 --version
+
+      - name: Validate plist files
+        run: |
+          plutil -lint DanaSafeDeveloper/Info.plist
+          plutil -lint DanaSafeDeveloper/PrivacyInfo.xcprivacy
+
+      - name: Validate JSON fixtures
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          roots = [
+              Path("DanaSafeDeveloper"),
+              Path("Engine/Data"),
+          ]
+
+          failures = []
+
+          for root in roots:
+              if not root.exists():
+                  continue
+
+              for path in root.rglob("*.json"):
+                  try:
+                      json.loads(path.read_text())
+                      print("OK", path)
+                  except Exception as exc:
+                      failures.append((path, exc))
+
+          if failures:
+              for path, exc in failures:
+                  print("ERROR", path, exc)
+              raise SystemExit(1)
+          PY
+
+      - name: Parse Swift sources
+        run: |
+          set -e
+          find \
+            DanaSafeDeveloper \
+            DanaSafeDeveloperTests \
+            DanaSafeDeveloperUITests \
+            -type f \
+            -name "*.swift" \
+            -print0 |
+          while IFS= read -r -d '' f; do
+            echo "Parsing $f"
+            xcrun swiftc -frontend -parse "$f"
+          done
+
+      - name: Python syntax validation
+        run: |
+          python3 -m compileall -q Engine Tests Tools CloudflareV51/container
+
+      - name: DanaSafe 8.1 verifier
+        run: |
+          python3 Tests/verify_v81.py
+
+      - name: Canonical regression
+        run: |
+          if [ -x Tests/run_offline_regression.sh ]; then
+            ./Tests/run_offline_regression.sh
+          fi
+
+  xcode:
+    name: Xcode build and tests
+    runs-on: macos-26
+    needs: validate
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show project
+        run: |
+          xcodebuild \
+            -project DanaSafeDeveloper.xcodeproj \
+            -list
+
+      - name: Release build
+        run: |
+          set -o pipefail
+
+          xcodebuild \
+            -project DanaSafeDeveloper.xcodeproj \
+            -scheme DanaSafeDeveloper \
+            -configuration Release \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tee DanaSafe-CI-Release.log
+
+      - name: Select simulator
+        id: sim
+        run: |
+          set -e
+
+          DEVICE="iPhone 17 Pro"
+
+          RUNTIME="$(
+            xcrun simctl list runtimes |
+            awk '/iOS/ && /available/ {print $NF}' |
+            tail -n 1
+          )"
+
+          if [ -z "$RUNTIME" ]; then
+            echo "No iOS simulator runtime found"
+            exit 1
+          fi
+
+          UDID="$(
+            xcrun simctl create \
+              "DanaSafe-CI-iPhone17Pro" \
+              "com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro" \
+              "$RUNTIME"
+          )"
+
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+
+      - name: Boot simulator
+        run: |
+          xcrun simctl boot "${{ steps.sim.outputs.udid }}" || true
+          open -a Simulator || true
+          xcrun simctl bootstatus "${{ steps.sim.outputs.udid }}" -b
+
+      - name: Run tests
+        run: |
+          set -o pipefail
+
+          xcodebuild test \
+            -project DanaSafeDeveloper.xcodeproj \
+            -scheme DanaSafeDeveloper \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            CODE_SIGNING_ALLOWED=NO \
+            | tee DanaSafe-CI-Tests.log
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DanaSafe-CI-logs
+          path: |
+            DanaSafe-CI-Release.log
+            DanaSafe-CI-Tests.log
+          if-no-files-found: ignore
