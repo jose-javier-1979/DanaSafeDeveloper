@@ -174,6 +174,14 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
   }
 
   const frameKeys: string[] = [];
+  const frameRecords: Array<{
+    frame: number;
+    timestamp: string;
+    source_filename: string;
+    r2_key: string;
+    sha256: string;
+    bytes: number;
+  }> = [];
   for (let frameNumber = 1; frameNumber <= 10; frameNumber += 1) {
     const frame = await fetchEngineFrame(env, frameNumber);
     const expected = frames[frameNumber - 1];
@@ -194,6 +202,14 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
       },
     });
     frameKeys.push(key);
+    frameRecords.push({
+      frame: frameNumber,
+      timestamp: frame.timestamp,
+      source_filename: originalName,
+      r2_key: key,
+      sha256: frame.sha256,
+      bytes: frame.raw.byteLength,
+    });
   }
 
   const manifestRaw = new TextEncoder().encode(JSON.stringify({
@@ -204,6 +220,7 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
     source: "AEMET COMPO PB",
     original_manifest: manifest,
     raw_objects: frameKeys,
+    raw_frames: frameRecords,
   }));
 
   await env.SNAPSHOTS.put(manifestKey, manifestRaw, {
@@ -279,6 +296,11 @@ async function readArchiveObject(env: Env, key: string): Promise<Response> {
   object.writeHttpMetadata(headers);
   headers.set("cache-control", "no-store, no-cache, must-revalidate");
   headers.set("x-danasafe-source", "r2-history-archive");
+  const metadata = object.customMetadata ?? {};
+  if (metadata.sha256) headers.set("x-danasafe-sha256", String(metadata.sha256));
+  if (metadata.radar_timestamp) headers.set("x-danasafe-radar-timestamp", String(metadata.radar_timestamp));
+  if (metadata.source_filename) headers.set("x-danasafe-source-filename", String(metadata.source_filename));
+  if (metadata.archive_complete) headers.set("x-danasafe-archive-complete", String(metadata.archive_complete));
   return new Response(object.body, { status: 200, headers });
 }
 
@@ -380,7 +402,8 @@ export default {
         const manifestObject = await env.SNAPSHOTS.get(`${prefix}/manifest.json`);
         if (!manifestObject) return json({ status: "missing", message: "Archive manifest not found" }, 404);
         const manifest = JSON.parse(await manifestObject.text());
-        const key = manifest?.raw_objects?.[frameNumber - 1];
+        const key = manifest?.raw_frames?.[frameNumber - 1]?.r2_key
+          ?? manifest?.raw_objects?.[frameNumber - 1];
         if (!key || typeof key !== "string") {
           return json({ status: "missing", message: `Raw frame ${frameNumber} not indexed` }, 404);
         }
