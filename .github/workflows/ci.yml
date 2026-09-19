@@ -85,15 +85,16 @@ jobs:
         run: |
           python3 Tests/verify_v81.py
 
-      - name: Install Python engine dependencies
+      - name: Create Python virtual environment
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install -r Engine/requirements.txt
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install -r Engine/requirements.txt
 
       - name: Canonical regression
         run: |
           if [ -x Tests/run_offline_regression.sh ]; then
-            ./Tests/run_offline_regression.sh
+            PATH="$PWD/.venv/bin:$PATH" ./Tests/run_offline_regression.sh
           fi
 
   xcode:
