@@ -26,7 +26,9 @@ struct ContentView: View {
         }
         .task {
             model.loadBundled()
-            await model.loadFromCloudflare()
+            if !ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+                await model.loadFromCloudflare()
+            }
         }
     }
 }
