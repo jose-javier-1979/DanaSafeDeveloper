@@ -430,7 +430,7 @@ struct ToolsView: View {
                 Section("Version 8.2 data contract") {
                     Text("Cloudflare HTTPS is the only network path. DanaSafe 8.2 keeps the validated production endpoint unchanged; the live Worker version is reported dynamically above.")
                         .font(.caption)
-                    Text("8.2 validated-backend mode: POST /radar/refresh accepts the current synchronous 200 snapshot and retains compatibility with a 202 queued response followed by /radar/refresh-status. Before LIVE advances, the Worker archives the atomic snapshot, manifest and the ten raw AEMET frames in R2 and verifies their existence. If the Worker does not publish nowcast, DanaSafe derives it from the same ten live radar frames on-device.")
+                    Text("8.2 client mode keeps compatibility with the current production 200/202 refresh contract. Historical R2 retention is reported only when the backend exposes the 8.2 history contract; until the isolated V82 backend is validated and promoted, Tools may show history as unavailable. If the Worker does not publish nowcast, DanaSafe derives it from the same ten live radar frames on-device.")
                         .font(.caption)
                 }
             }
