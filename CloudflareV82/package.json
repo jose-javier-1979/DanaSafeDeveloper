@@ -1,0 +1,19 @@
+{
+  "name": "danasafe-cloudflare-v82",
+  "private": true,
+  "version": "8.2.0-history.2",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "typecheck": "tsc -p tsconfig.ci.json"
+  },
+  "dependencies": {
+    "@cloudflare/containers": "^0.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "wrangler": "^4.0.0"
+  }
+}
