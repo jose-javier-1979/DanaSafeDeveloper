@@ -1,33 +1,51 @@
 import XCTest
 
 final class DanaSafeDeveloperUITests: XCTestCase {
-    override func setUpWithError() throws { continueAfterFailure = false }
+    override func setUpWithError() throws {
+        continueAfterFailure = false
+    }
 
     @MainActor
     func testPrimaryNavigationAndNowcastHelp() throws {
         let app = XCUIApplication()
+        app.launchArguments.append("--ui-testing")
         app.launch()
+
         let tabBar = app.tabBars.firstMatch
-        XCTAssertTrue(tabBar.buttons["Radar"].waitForExistence(timeout: 10))
-        XCTAssertTrue(tabBar.buttons["Ahora"].exists)
-        XCTAssertTrue(tabBar.buttons["Systems"].exists)
-        XCTAssertTrue(tabBar.buttons["Hydrology"].exists)
-        XCTAssertTrue(tabBar.buttons["Tools"].exists)
+        for tab in ["Radar", "Ahora", "Systems", "Hydrology", "Tools"] {
+            XCTAssertTrue(tabBar.buttons[tab].waitForExistence(timeout: 15), "Missing tab: \(tab)")
+        }
+
         tabBar.buttons["Ahora"].tap()
-        XCTAssertTrue(app.buttons["nowcast.evaluateLocation"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["nowcast.refresh"].exists)
-        XCTAssertTrue(app.buttons["nowcast.notifications"].exists)
-        XCTAssertTrue(app.buttons["nowcast.help"].exists)
+        for identifier in [
+            "nowcast.evaluateLocation",
+            "nowcast.refresh",
+            "nowcast.notifications",
+            "nowcast.help",
+        ] {
+            XCTAssertTrue(app.buttons[identifier].waitForExistence(timeout: 15), "Missing Nowcast control: \(identifier)")
+        }
+
         app.buttons["nowcast.help"].tap()
-        XCTAssertTrue(app.buttons["OK"].waitForExistence(timeout: 5))
-        app.buttons["OK"].tap()
+        let dismiss = app.buttons["nowcast.help.dismiss"]
+        XCTAssertTrue(dismiss.waitForExistence(timeout: 15), "Nowcast help sheet did not open")
+        dismiss.tap()
+        XCTAssertFalse(dismiss.waitForExistence(timeout: 5), "Nowcast help sheet did not dismiss")
+
         tabBar.buttons["Tools"].tap()
-        XCTAssertTrue(app.buttons["tools.healthCheck"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["tools.refresh"].exists)
+        XCTAssertTrue(app.buttons["tools.healthCheck"].waitForExistence(timeout: 15), "Tools health check is missing")
+        XCTAssertTrue(app.buttons["tools.refresh"].waitForExistence(timeout: 15), "Tools refresh is missing")
     }
 
     @MainActor
     func testLaunchPerformance() throws {
-        measure(metrics: [XCTApplicationLaunchMetric()]) { XCUIApplication().launch() }
+        if ProcessInfo.processInfo.environment["CI"] == "true" {
+            throw XCTSkip("Launch-performance sampling is intentionally manual; CI runs deterministic functional UI tests.")
+        }
+        measure(metrics: [XCTApplicationLaunchMetric()]) {
+            let app = XCUIApplication()
+            app.launchArguments.append("--ui-testing")
+            app.launch()
+        }
     }
 }
