@@ -3,122 +3,108 @@
 **Versión:** 8.2  
 **Build:** 82  
 **Bundle ID:** `com.firefritz.DanaSafeDeveloperV82`  
-**Base:** proyecto actual DanaSafe 8.1 sobre `main`  
-**Objetivo principal:** impedir la pérdida de ciclos radar y permitir su recuperación/validación posterior.
+**Base:** DanaSafe 8.1 sobre `main`  
+**Objetivo:** impedir la pérdida de ciclos radar, hacerlos recuperables y mantener intacto el backend previamente validado.
 
-## 1. Decisión de arquitectura
+## 1. Separación de responsabilidades
 
-El filesystem del Cloudflare Container se considera efímero y nunca actúa como archivo histórico.
+`CloudflareV51/` permanece byte por byte conforme a `WORKER_PRODUCTION_FROZEN_SHA256.txt`.
 
-Cloudflare R2, bucket `danasafe-radar-v51`, sigue siendo el almacenamiento autoritativo. Se conserva la clave LIVE existente:
+`CloudflareV82/` contiene el nuevo backend histórico. Su configuración por defecto es deliberadamente aislada:
 
-`published/danasafe_live_snapshot.json`
+- Worker candidato: `danasafe-radar-v82-candidate`
+- R2 candidato: `danasafe-radar-v82-candidate`
 
-y se añade archivo histórico inmutable:
+La configuración `wrangler.production.example.jsonc` documenta la promoción futura al Worker y bucket de producción, pero no se usa antes de la validación real.
 
-`history/cycles/<radar_timestamp>/`
+## 2. Persistencia
 
-Cada ciclo contiene:
+El filesystem del Container es scratch. No constituye almacenamiento histórico.
 
-- `snapshot.json`
-- `manifest.json`
-- 10 imágenes AEMET originales en `raw/`
+R2 conserva, por ciclo:
 
-## 2. Invariante archive-before-live
+- `history/cycles/<timestamp>/snapshot.json`
+- `history/cycles/<timestamp>/manifest.json`
+- diez RAW AEMET;
+- marcador final `history/index/<reverse-time>_<timestamp>.json`.
 
-Para un nuevo ciclo:
+El marcador del índice es la señal autoritativa de ciclo completo.
 
-1. El Worker determina el último timestamp AEMET.
-2. Ese timestamp se pasa al Container.
-3. El Container fija `DANASAFE_TARGET_TIMESTAMP` para que Python descargue exactamente el ciclo solicitado.
-4. Se genera el snapshot atómico.
-5. El Worker solicita al Container el manifest y las diez imágenes brutas.
-6. Cada frame se guarda en R2 con SHA-256, timestamp, nombre original y número de frame.
-7. `manifest.json` registra clave R2, hash, tamaño, timestamp y nombre original de los 10 frames.
-8. El snapshot histórico se escribe el último con `archive_complete=true`.
-9. El Worker verifica por HEAD snapshot + manifest + 10 frames.
-10. Sólo entonces actualiza el snapshot LIVE.
+## 3. Invariante archive-before-live
 
-Si falla cualquier paso de archivo/verificación, LIVE no avanza.
+1. Worker fija el target AEMET.
+2. Container recibe el target en `DANASAFE_TARGET_TIMESTAMP`.
+3. Pipeline genera exactamente ese ciclo.
+4. Mientras mantiene el lock, el Container crea un staging inmutable por timestamp.
+5. Worker recupera del staging manifest + 10 RAW.
+6. Cada RAW se guarda con SHA-256, timestamp, nombre, número y tamaño.
+7. Se escriben manifest y snapshot históricos.
+8. Worker verifica en R2 los 12 objetos.
+9. Se escribe y verifica el marcador del índice.
+10. Sólo después se intenta avanzar LIVE.
 
-## 3. Recuperación
+Un guard adicional impide sustituir LIVE por un timestamp anterior si otro refresh concurrente ya publicó uno más nuevo.
 
-Rutas incorporadas:
+## 4. Concurrencia
 
+Las lecturas de archivo no vuelven a consultar el manifest mutable del pipeline. Usan `ArchiveStaging/<timestamp>/`, creado dentro del lock. Esto elimina la carrera entre dos refreshes alrededor de un cambio de slot.
+
+## 5. Histórico y escalabilidad
+
+El índice usa tiempo invertido, de modo que el orden lexicográfico de R2 es newest-first.
+
+`GET /radar/history`:
+- admite `limit`;
+- admite `cursor`;
+- devuelve `next_cursor`;
+- obtiene metadata directamente del listing.
+
+`/health` consulta sólo un marcador del índice; su coste no crece linealmente con el histórico.
+
+## 6. Bootstrap desde 8.1
+
+El fast path de “LIVE ya coincide con AEMET” sólo se usa si existe además el marcador histórico 8.2. Tras una actualización, un LIVE actual pero todavía no archivado obliga a generar/stagear y archivar ese mismo target.
+
+## 7. Recuperación e integridad
+
+Rutas:
 - `GET /radar/history`
 - `GET /radar/history/cycle?timestamp=...`
 - `GET /radar/history/manifest?timestamp=...`
 - `GET /radar/history/raw?timestamp=...&frame=1..10`
 
-Los frames recuperados exponen SHA-256 en cabecera y el manifest contiene una copia portable del hash, por lo que la integridad puede comprobarse fuera de Cloudflare.
+El manifest publica hash y tamaño de cada RAW. La respuesta RAW expone también el SHA-256 de metadata R2.
 
-## 4. Idempotencia
+## 8. Google Drive
 
-Si ya existe un ciclo con `archive_complete=true` y 10 objetos RAW, el Worker lo reutiliza y evita duplicar escrituras.
+Google Drive queda fuera de la transacción crítica. `Tools/export_r2_history.py` exporta a cualquier carpeta y vuelve a verificar hash/tamaño antes de escribir una copia secundaria.
 
-## 5. Google Drive
+## 9. Aplicación iOS
 
-Google Drive no está en la transacción crítica de actualización. Se incorpora `Tools/export_r2_history.py` para exportar posteriormente a cualquier directorio, incluida una carpeta sincronizada con Google Drive.
+- Marketing 8.2, build 82, bundle V82.
+- Mantiene el endpoint de producción actual.
+- Decodifica opcionalmente `history_enabled`, `history_latest_timestamp` y `archive_policy`.
+- Mientras producción no haya sido promovida a V82, muestra explícitamente que el backend actual no dispone del archivo 8.2.
 
-El exportador:
+## 10. Dos verificaciones independientes
 
-- descarga snapshot + manifest + 10 frames;
-- recalcula SHA-256;
-- compara hash y tamaño con el manifest;
-- compara también el SHA de metadata R2 cuando está disponible;
-- genera `verification.json`;
-- aborta ante una discrepancia.
-
-## 6. Aplicación iOS
-
-- Marketing version 8.2.
-- Build 82.
-- Bundle ID V82 para poder probarla junto a la versión previa.
-- Tools muestra estado del histórico R2 y número de ciclos visibles.
-- Se conserva el endpoint de producción.
-
-## 7. Dos verificaciones independientes
-
-### Verificación 1 — integridad de implementación
-
+### Verificación 1
 `Tests/verify_v82.py`
 
-Comprueba versionado, archive-before-live, 10 frames, hashes, commit marker, recuperación, pinning temporal e integración iOS.
+Comprueba iOS/versionado, inmovilidad V51, aislamiento V82, archive-before-live, índice, staging y hashes.
 
-### Verificación 2 — contrato de retención
-
+### Verificación 2
 `Tests/verify_v82_independent.py`
 
-Comprueba por una vía separada topología R2, recuperabilidad, idempotencia, semántica de fallo, pinning del target e integridad extremo a extremo de los RAW.
+Comprueba por otra vía topología de almacenamiento, idempotencia, paginación newest-first, coste O(1) de health, concurrencia, bootstrap y cadena de integridad.
 
-Ambas se ejecutan dentro de GitHub Actions antes de Xcode build/tests.
+## 11. Criterio de promoción
 
-## 8. Criterio de release
-
-No declarar 8.2 operativa hasta completar:
-
-1. Ambas verificaciones automáticas.
-2. TypeScript typecheck.
-3. Regresión Python canónica.
-4. Release build iOS.
-5. Unit/UI tests.
-6. Despliegue Worker/Container.
-7. Refresh real.
-8. Confirmación de que el timestamp LIVE aparece en histórico.
-9. Recuperación del manifest y 10 frames del ciclo real con hashes correctos.
-
-## 9. Saneamiento del CI heredado
-
-La auditoría de los runs previos de `main` confirmó que el Release build ya pasaba, pero `DanaSafeDeveloperUITests.testPrimaryNavigationAndNowcastHelp()` fallaba y el benchmark de lanzamiento multiplicaba ejecuciones y tiempo de simulador.
-
-8.2 corrige esa deuda previa mediante:
-
-- argumento `--ui-testing`;
-- startup con fixture local, sin llamada inicial a Cloudflare;
-- supresión de polling/consulta de permisos durante UI tests;
-- identificador estable `nowcast.help.dismiss`;
-- esperas explícitas por accessibility identifiers;
-- un único smoke launch en vez de todas las configuraciones UI;
-- benchmark de launch excluido de CI y conservado para ejecución manual.
-
-Esto no reduce la cobertura funcional del CI; elimina variabilidad de red, permisos y benchmark que no pertenecen a la prueba de navegación.
+No considerar el histórico operativo en producción hasta que:
+1. ambas verificaciones sean PASS;
+2. TypeScript y regresión canónica sean PASS;
+3. Xcode build + tests sean PASS;
+4. el candidato se despliegue de forma aislada;
+5. un refresh real produzca un ciclo recuperable;
+6. los 10 SHA-256 recuperados coincidan;
+7. sólo entonces se promueva el backend de producción.
