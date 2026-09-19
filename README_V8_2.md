@@ -1,40 +1,59 @@
-# DanaSafe 8.2 — historical radar archive candidate
+# DanaSafe 8.2 — integración de archivo radar histórico
 
-DanaSafe 8.2 evolves the current project without replacing the repository or scientific core.
+DanaSafe 8.2 evoluciona el proyecto actual sin sustituir el repositorio ni el núcleo científico.
 
-## Primary change
+## Estructura de backend
 
-Every successful new radar cycle is archived in Cloudflare R2 before the LIVE snapshot advances.
+- `CloudflareV51/`: referencia congelada del backend previamente validado. No se modifica.
+- `CloudflareV82/`: candidato 8.2 con archivo histórico R2.
 
-For each radar timestamp the archive contains:
+El candidato usa un Worker y bucket aislados para poder realizar una validación real sin alterar el endpoint que hoy usa el iPhone.
+
+## Contrato histórico 8.2
+
+Cada ciclo completado se almacena antes de permitir que LIVE avance:
 
 - `snapshot.json`
 - `manifest.json`
-- 10 raw AEMET radar frames
+- 10 frames AEMET brutos
+- marcador final bajo `history/index/`
 
-The cycle snapshot is written last with `archive_complete=true`, acting as the commit marker. The Worker verifies all 12 R2 objects before publishing the new LIVE snapshot.
+El marcador del índice se escribe **después** de verificar snapshot, manifest y los diez frames. Es la señal autoritativa de `archive_complete`.
 
-## Recovery
+El índice utiliza claves de tiempo inverso para que R2 devuelva primero los ciclos más recientes. `/radar/history` admite cursor y no realiza un HEAD por cada ciclo. `/health` sólo consulta el marcador más reciente.
 
-Archived cycles can be listed and individual snapshots, manifests, and raw frames can be retrieved through the Worker history endpoints.
+## Concurrencia
 
-## Validation order
+El Container congela un bundle identificado por timestamp mientras mantiene el lock del pipeline. Las posteriores lecturas de archivo usan ese bundle y no el `sequence_manifest.json` mutable, evitando mezclar dos ciclos cuando coinciden refreshes alrededor del cambio de slot AEMET.
 
-1. Run `python3 Tests/verify_v82.py`.
-2. Run the full GitHub Actions CI build and tests.
-3. Deploy the 8.2 Worker/Container.
-4. Trigger one real radar refresh.
-5. Confirm that the returned LIVE timestamp is present in `/radar/history`.
-6. Retrieve its manifest and all 10 raw frames and verify hashes/metadata.
+## Endpoint iOS
 
-Do not consider historical retention operational until steps 3–6 have passed against the production R2 bucket.
+La app 8.2 conserva por seguridad el endpoint de producción actual:
 
-## Optional Google Drive / local export
+`https://danasafe-radar.firefritz.workers.dev`
 
-R2 remains the authoritative live archive. For a secondary human-browsable copy, run:
+Hasta que `CloudflareV82` sea promovido, Tools puede mostrar **R2 histórico: OFF · backend actual sin archivo 8.2**. Esto es deliberado: no se declara el histórico operativo antes de una validación real del candidato.
+
+## Orden de validación
+
+1. `python3 Tests/verify_v82.py`
+2. `python3 Tests/verify_v82_independent.py`
+3. TypeScript del Worker 8.2.
+4. Regresión canónica Python.
+5. Release build iOS.
+6. Unit tests y UI test focalizado.
+7. Despliegue aislado del candidato `CloudflareV82`.
+8. Refresh real.
+9. Confirmar el timestamp en `/radar/history`.
+10. Recuperar manifest + 10 RAW y verificar SHA-256.
+11. Sólo después, promover la configuración de producción.
+
+## Google Drive / exportación local
+
+R2 es el archivo operativo. Para una copia secundaria en una carpeta local o sincronizada con Google Drive:
 
 ```sh
-python3 Tools/export_r2_history.py --output "/path/to/Google Drive/DanaSafe Radar History"
+python3 Tools/export_r2_history.py --base-url <backend-8.2> --output "/path/to/Google Drive/DanaSafe Radar History"
 ```
 
-The exporter downloads each completed cycle, writes its snapshot, manifest and ten raw frames, recalculates SHA-256 for every frame, checks the manifest hash/byte count and writes `verification.json`. A failed integrity check aborts that cycle instead of silently copying corrupted data.
+El exportador recalcula SHA-256 y tamaño de los diez frames y genera `verification.json`. Una discrepancia aborta la exportación del ciclo.
