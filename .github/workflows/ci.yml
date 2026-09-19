@@ -85,6 +85,11 @@ jobs:
         run: |
           python3 Tests/verify_v81.py
 
+      - name: Install Python engine dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r Engine/requirements.txt
+
       - name: Canonical regression
         run: |
           if [ -x Tests/run_offline_regression.sh ]; then
