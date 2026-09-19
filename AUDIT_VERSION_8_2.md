@@ -103,8 +103,13 @@ Comprueba por otra vía topología de almacenamiento, idempotencia, paginación 
 No considerar el histórico operativo en producción hasta que:
 1. ambas verificaciones sean PASS;
 2. TypeScript y regresión canónica sean PASS;
-3. Xcode build + tests sean PASS;
-4. el candidato se despliegue de forma aislada;
-5. un refresh real produzca un ciclo recuperable;
-6. los 10 SHA-256 recuperados coincidan;
-7. sólo entonces se promueva el backend de producción.
+3. Release build Xcode y unit tests sean PASS;
+4. la app Release se instale y arranque correctamente en un simulador real de CI;
+5. el candidato se despliegue de forma aislada;
+6. un refresh real produzca un ciclo recuperable;
+7. los 10 SHA-256 recuperados coincidan;
+8. sólo entonces se promueva el backend de producción.
+
+### Nota sobre XCUI en macOS 26
+
+La prueba XCUI `testPrimaryNavigationAndNowcastHelp` se conserva en el repositorio para ejecución manual, pero deja de ser un gate de CI. En los runners macOS 26 / Xcode 26.6, el proceso `DanaSafeDeveloperUITests.xctrunner` murió con `NSMachErrorDomain Code=-308 (ipc/mig server died)` antes de completar la prueba, mientras Release build y unit tests pasaban. El gate automático usa por ello una comprobación determinista: instala la app Release en el simulador, resuelve su contenedor mediante el bundle ID V82 y la lanza con `simctl launch`.
