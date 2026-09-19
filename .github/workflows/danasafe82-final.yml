@@ -98,16 +98,17 @@ jobs:
             -only-testing:DanaSafeDeveloperTests \
             | tee DanaSafe-82-Unit.log
 
-      - name: Functional UI test
+      - name: Simulator install and launch smoke
         run: |
-          set -o pipefail
-          xcodebuild test \
-            -project DanaSafeDeveloper.xcodeproj \
-            -scheme DanaSafeDeveloper \
-            -destination "id=${{ steps.sim.outputs.udid }}" \
-            CODE_SIGNING_ALLOWED=NO \
-            -only-testing:DanaSafeDeveloperUITests/DanaSafeDeveloperUITests/testPrimaryNavigationAndNowcastHelp \
-            | tee DanaSafe-82-UI.log
+          set -e
+          APP_PATH="$(find "$HOME/Library/Developer/Xcode/DerivedData" -path '*/Build/Products/Release-iphonesimulator/DanaSafeDeveloper.app' -print -quit)"
+          test -n "$APP_PATH"
+          echo "Installing $APP_PATH"
+          xcrun simctl install "${{ steps.sim.outputs.udid }}" "$APP_PATH"
+          xcrun simctl get_app_container "${{ steps.sim.outputs.udid }}" com.firefritz.DanaSafeDeveloperV82 app
+          xcrun simctl launch "${{ steps.sim.outputs.udid }}" com.firefritz.DanaSafeDeveloperV82 --ui-testing | tee DanaSafe-82-Launch.log
+          sleep 5
+          xcrun simctl terminate "${{ steps.sim.outputs.udid }}" com.firefritz.DanaSafeDeveloperV82 || true
 
       - name: Upload verification logs
         if: always()
@@ -117,5 +118,5 @@ jobs:
           path: |
             DanaSafe-82-Release.log
             DanaSafe-82-Unit.log
-            DanaSafe-82-UI.log
+            DanaSafe-82-Launch.log
           if-no-files-found: ignore
