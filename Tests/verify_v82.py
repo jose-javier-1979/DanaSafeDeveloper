@@ -39,7 +39,7 @@ check("history cycle endpoint", 'path === "/radar/history/cycle"' in worker)
 check("history manifest endpoint", 'path === "/radar/history/manifest"' in worker)
 check("history raw endpoint", 'path === "/radar/history/raw"' in worker)
 check("archive exact 10 frames", "frames.length !== 10" in worker and "frameNumber <= 10" in worker)
-check("raw object hashes stored", 'sha256: frame.sha256' in worker)
+check("raw object hashes stored", 'sha256: frame.sha256' in worker)\ncheck("manifest contains raw-frame verification records", "raw_frames: frameRecords" in worker and "bytes: frame.raw.byteLength" in worker)
 check("cycle commit marker", 'archive_complete: "true"' in worker)
 check("post-write R2 verification", "R2 archive verification failed after write" in worker)
 
