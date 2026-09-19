@@ -4,6 +4,9 @@ const AEMET_BASE = "https://www.aemet.es";
 const AEMET_TIMELINE = `${AEMET_BASE}/es/api-eltiempo/radar/timeline/compo/PB`;
 const SNAPSHOT_KEY = "published/danasafe_live_snapshot.json";
 const HISTORY_PREFIX = "history/cycles";
+const HISTORY_INDEX_PREFIX = "history/index";
+const MAX_HISTORY_PAGE = 500;
+const REVERSE_TIME_MAX = 9_999_999_999_999;
 
 export interface Env {
   DANASAFE_ENGINE: any;
@@ -45,22 +48,42 @@ function latestElement(timeline: any): any {
   return [...elements].sort((a, b) => Date.parse(a.Fecha) - Date.parse(b.Fecha)).at(-1);
 }
 
-async function readStoredSnapshot(env: Env): Promise<any | null> {
+async function readStoredSnapshotRecord(env: Env): Promise<{ raw: ArrayBuffer; snapshot: any } | null> {
   const object = await env.SNAPSHOTS.get(SNAPSHOT_KEY);
   if (!object) return null;
-  return JSON.parse(await object.text());
+  const raw = await object.arrayBuffer();
+  const snapshot = JSON.parse(new TextDecoder().decode(raw));
+  return { raw, snapshot };
 }
 
-async function persistLiveSnapshot(env: Env, raw: ArrayBuffer, snapshot: any) {
+async function readStoredSnapshot(env: Env): Promise<any | null> {
+  return (await readStoredSnapshotRecord(env))?.snapshot ?? null;
+}
+
+async function persistLiveSnapshot(
+  env: Env,
+  raw: ArrayBuffer,
+  snapshot: any,
+): Promise<"updated" | "skipped-newer-live"> {
+  // Last-moment monotonicity guard. Archive writes can take longer than another
+  // concurrent refresh, so never overwrite a LIVE snapshot with an older cycle.
+  const current = await readStoredSnapshot(env);
+  const incomingMs = Date.parse(String(snapshot?.radar_timestamp ?? ""));
+  const currentMs = Date.parse(String(current?.radar_timestamp ?? ""));
+  if (Number.isFinite(incomingMs) && Number.isFinite(currentMs) && currentMs > incomingMs) {
+    return "skipped-newer-live";
+  }
+
   await env.SNAPSHOTS.put(SNAPSHOT_KEY, raw, {
     httpMetadata: { contentType: "application/json" },
     customMetadata: {
       radar_timestamp: String(snapshot?.radar_timestamp ?? ""),
       generated_at: String(snapshot?.generated_at ?? ""),
       schema_version: String(snapshot?.schema?.version ?? "8.2.0"),
-      archive_policy: "history-before-live",
+      archive_policy: "archive-before-live",
     },
   });
+  return "updated";
 }
 
 function sameInstant(a?: string, b?: string) {
@@ -77,6 +100,13 @@ function safeTimestamp(timestamp: string): string {
 
 function archivePrefix(timestamp: string): string {
   return `${HISTORY_PREFIX}/${safeTimestamp(timestamp)}`;
+}
+
+function historyIndexKey(timestamp: string): string {
+  const ms = Date.parse(timestamp);
+  if (!Number.isFinite(ms)) throw new Error(`Invalid history index timestamp: ${timestamp}`);
+  const reversed = Math.max(0, REVERSE_TIME_MAX - ms).toString().padStart(13, "0");
+  return `${HISTORY_INDEX_PREFIX}/${reversed}_${safeTimestamp(timestamp)}.json`;
 }
 
 function engineFor(env: Env) {
@@ -102,27 +132,33 @@ async function runEngineRefresh(env: Env, targetTimestamp?: string): Promise<{ r
   return { raw, snapshot };
 }
 
-async function fetchEngineManifest(env: Env): Promise<any> {
-  const response = await engineFor(env).fetch(new Request("http://container/archive/manifest", {
-    method: "GET",
-    headers: { accept: "application/json", "cache-control": "no-store" },
-  }));
+async function fetchEngineManifest(env: Env, timestamp: string): Promise<any> {
+  const response = await engineFor(env).fetch(new Request(
+    `http://container/archive/manifest?timestamp=${encodeURIComponent(timestamp)}`,
+    {
+      method: "GET",
+      headers: { accept: "application/json", "cache-control": "no-store" },
+    },
+  ));
   const raw = await response.text();
   if (!response.ok) throw new Error(`Archive manifest HTTP ${response.status}: ${raw.slice(0, 1000)}`);
   return JSON.parse(raw);
 }
 
-async function fetchEngineFrame(env: Env, frameNumber: number): Promise<{
+async function fetchEngineFrame(env: Env, timestamp: string, frameNumber: number): Promise<{
   raw: ArrayBuffer;
   timestamp: string;
   filename: string;
   sha256: string;
   contentType: string;
 }> {
-  const response = await engineFor(env).fetch(new Request(`http://container/archive/frame?frame=${frameNumber}`, {
-    method: "GET",
-    headers: { "cache-control": "no-store" },
-  }));
+  const response = await engineFor(env).fetch(new Request(
+    `http://container/archive/frame?timestamp=${encodeURIComponent(timestamp)}&frame=${frameNumber}`,
+    {
+      method: "GET",
+      headers: { "cache-control": "no-store" },
+    },
+  ));
   const raw = await response.arrayBuffer();
   if (!response.ok) {
     const message = new TextDecoder().decode(raw).slice(0, 1000);
@@ -137,37 +173,49 @@ async function fetchEngineFrame(env: Env, frameNumber: number): Promise<{
   };
 }
 
+async function archiveIsComplete(env: Env, timestamp: string): Promise<boolean> {
+  const marker = await env.SNAPSHOTS.head(historyIndexKey(timestamp));
+  return !!marker && marker.customMetadata?.archive_complete === "true";
+}
+
 async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): Promise<{
   prefix: string;
   snapshotKey: string;
   manifestKey: string;
+  indexKey: string;
   frameKeys: string[];
 }> {
   const radarTimestamp = String(snapshot?.radar_timestamp ?? "");
   const prefix = archivePrefix(radarTimestamp);
   const snapshotKey = `${prefix}/snapshot.json`;
   const manifestKey = `${prefix}/manifest.json`;
+  const indexKey = historyIndexKey(radarTimestamp);
 
-  // Idempotency: a completed cycle is immutable. Reusing it avoids needless R2 writes.
-  const existingSnapshot = await env.SNAPSHOTS.head(snapshotKey);
-  const existingManifest = await env.SNAPSHOTS.head(manifestKey);
-  if (existingSnapshot && existingManifest && existingSnapshot.customMetadata?.archive_complete === "true") {
-    const listed = await env.SNAPSHOTS.list({ prefix: `${prefix}/raw/`, limit: 20 });
-    if ((listed.objects ?? []).length === 10) {
-      return {
-        prefix,
-        snapshotKey,
-        manifestKey,
-        frameKeys: listed.objects.map((item: any) => item.key).sort(),
-      };
-    }
+  // The index marker is written last, after the whole cycle has been verified.
+  // Its presence is therefore the authoritative idempotency/commit check.
+  if (await archiveIsComplete(env, radarTimestamp)) {
+    return { prefix, snapshotKey, manifestKey, indexKey, frameKeys: [] };
   }
 
-  const manifest = await fetchEngineManifest(env);
+  const manifest = await fetchEngineManifest(env, radarTimestamp);
   const frames = Array.isArray(manifest?.frames) ? manifest.frames : [];
   if (frames.length !== 10) throw new Error(`Archive requires exactly 10 raw frames; got ${frames.length}`);
 
   const manifestTimes = frames.map((frame: any) => String(frame?.fecha ?? ""));
+  const snapshotTimes = Array.isArray(snapshot?.radar?.frames)
+    ? snapshot.radar.frames.map((frame: any) => String(frame?.timestamp ?? ""))
+    : [];
+  if (snapshotTimes.length !== 10) {
+    throw new Error(`Archive snapshot requires exactly 10 radar frames; got ${snapshotTimes.length}`);
+  }
+  for (let i = 0; i < 10; i += 1) {
+    if (!sameInstant(manifestTimes[i], snapshotTimes[i])) {
+      throw new Error(
+        `Archive cycle frame mismatch at ${i + 1}: manifest=${manifestTimes[i]} snapshot=${snapshotTimes[i]}`,
+      );
+    }
+  }
+
   const latestManifestTimestamp = manifestTimes.at(-1);
   if (!sameInstant(latestManifestTimestamp, radarTimestamp)) {
     throw new Error(`Archive cycle mismatch: manifest=${latestManifestTimestamp} snapshot=${radarTimestamp}`);
@@ -182,11 +230,15 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
     sha256: string;
     bytes: number;
   }> = [];
+
   for (let frameNumber = 1; frameNumber <= 10; frameNumber += 1) {
-    const frame = await fetchEngineFrame(env, frameNumber);
+    const frame = await fetchEngineFrame(env, radarTimestamp, frameNumber);
     const expected = frames[frameNumber - 1];
     if (!expected || !sameInstant(String(expected.fecha ?? ""), frame.timestamp)) {
       throw new Error(`Archive frame ${frameNumber} timestamp mismatch`);
+    }
+    if (!frame.sha256) {
+      throw new Error(`Archive frame ${frameNumber} is missing source SHA-256`);
     }
 
     const originalName = String(frame.filename || expected.filename || "frame").split("/").pop() || "frame";
@@ -212,9 +264,10 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
     });
   }
 
+  const archivedAt = new Date().toISOString();
   const manifestRaw = new TextEncoder().encode(JSON.stringify({
     archive_schema: { name: "DanaSafeRadarHistoryCycle", version: "8.2.0" },
-    archived_at: new Date().toISOString(),
+    archived_at: archivedAt,
     radar_timestamp: radarTimestamp,
     frame_count: 10,
     source: "AEMET COMPO PB",
@@ -232,7 +285,6 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
     },
   });
 
-  // Snapshot is written last and marked complete. This acts as the cycle commit marker.
   await env.SNAPSHOTS.put(snapshotKey, rawSnapshot, {
     httpMetadata: { contentType: "application/json" },
     customMetadata: {
@@ -240,7 +292,6 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
       generated_at: String(snapshot?.generated_at ?? ""),
       schema_version: String(snapshot?.schema?.version ?? ""),
       archive_version: "8.2",
-      archive_complete: "true",
       raw_frame_count: "10",
     },
   });
@@ -250,42 +301,80 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
     env.SNAPSHOTS.head(manifestKey),
     ...frameKeys.map((key) => env.SNAPSHOTS.head(key)),
   ]);
-  if (verification.some((item) => !item)) throw new Error("R2 archive verification failed after write");
-
-  return { prefix, snapshotKey, manifestKey, frameKeys };
-}
-
-async function historyStatus(env: Env, limit = 50) {
-  const boundedLimit = Math.min(Math.max(limit, 1), 500);
-  const result = await env.SNAPSHOTS.list({
-    prefix: `${HISTORY_PREFIX}/`,
-    delimiter: "/",
-    limit: boundedLimit,
-  });
-
-  const prefixes = (result.delimitedPrefixes ?? []).slice(0, boundedLimit);
-  const cycles = [];
-  for (const prefix of prefixes) {
-    const snapshotKey = `${prefix}snapshot.json`;
-    const object = await env.SNAPSHOTS.head(snapshotKey);
-    if (!object) continue;
-    cycles.push({
-      prefix,
-      snapshot_key: snapshotKey,
-      uploaded: object.uploaded,
-      size: object.size,
-      radar_timestamp: object.customMetadata?.radar_timestamp ?? null,
-      archive_complete: object.customMetadata?.archive_complete === "true",
-      raw_frame_count: Number(object.customMetadata?.raw_frame_count ?? 0),
-    });
+  if (verification.some((item) => !item)) {
+    throw new Error("R2 archive verification failed after write");
   }
 
-  cycles.sort((a: any, b: any) => String(b.radar_timestamp ?? "").localeCompare(String(a.radar_timestamp ?? "")));
+  const markerPayload = new TextEncoder().encode(JSON.stringify({
+    archive_schema: { name: "DanaSafeRadarHistoryIndex", version: "8.2.0" },
+    archived_at: archivedAt,
+    radar_timestamp: radarTimestamp,
+    prefix,
+    snapshot_key: snapshotKey,
+    manifest_key: manifestKey,
+    raw_frame_count: 10,
+  }));
+  await env.SNAPSHOTS.put(indexKey, markerPayload, {
+    httpMetadata: { contentType: "application/json" },
+    customMetadata: {
+      radar_timestamp: radarTimestamp,
+      archive_complete: "true",
+      raw_frame_count: "10",
+      snapshot_key: snapshotKey,
+      manifest_key: manifestKey,
+      archive_version: "8.2",
+    },
+  });
+
+  const committed = await env.SNAPSHOTS.head(indexKey);
+  if (!committed || committed.customMetadata?.archive_complete !== "true") {
+    throw new Error("R2 history commit marker verification failed");
+  }
+
+  return { prefix, snapshotKey, manifestKey, indexKey, frameKeys };
+}
+
+async function historyStatus(env: Env, limit = 50, cursor?: string | null) {
+  const boundedLimit = Math.min(Math.max(limit, 1), MAX_HISTORY_PAGE);
+  const options: any = {
+    prefix: `${HISTORY_INDEX_PREFIX}/`,
+    limit: boundedLimit,
+    include: ["customMetadata"],
+  };
+  if (cursor) options.cursor = cursor;
+
+  const result = await env.SNAPSHOTS.list(options);
+  const cycles = (result.objects ?? []).map((item: any) => ({
+    key: item.key,
+    uploaded: item.uploaded,
+    size: item.size,
+    radar_timestamp: item.customMetadata?.radar_timestamp ?? null,
+    archive_complete: item.customMetadata?.archive_complete === "true",
+    raw_frame_count: Number(item.customMetadata?.raw_frame_count ?? 0),
+    snapshot_key: item.customMetadata?.snapshot_key ?? null,
+    manifest_key: item.customMetadata?.manifest_key ?? null,
+  }));
+
   return {
     archive_version: "8.2",
+    order: "newest-first",
     cycles_returned: cycles.length,
     truncated: !!result.truncated,
+    next_cursor: result.truncated ? (result.cursor ?? null) : null,
     cycles,
+  };
+}
+
+async function historySummary(env: Env) {
+  const result = await env.SNAPSHOTS.list({
+    prefix: `${HISTORY_INDEX_PREFIX}/`,
+    limit: 1,
+    include: ["customMetadata"],
+  });
+  const latest = (result.objects ?? [])[0] ?? null;
+  return {
+    available: !!latest,
+    latest_timestamp: latest?.customMetadata?.radar_timestamp ?? null,
   };
 }
 
@@ -310,7 +399,6 @@ function historyTimestampFrom(url: URL): string {
   return raw;
 }
 
-
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -321,7 +409,7 @@ export default {
         return json({
           service: "DanaSafe Radar Backend",
           status: "online",
-          version: "8.2-history.1",
+          version: "8.2-history.2",
           architecture: "Worker + Container + R2 immutable history",
           archive_policy: "archive-before-live",
           endpoints: [
@@ -343,8 +431,7 @@ export default {
       }
 
       if (path === "/aemet/latest-image-info" && request.method === "GET") {
-        const timeline = await fetchAEMETTimeline();
-        const latest = latestElement(timeline);
+        const latest = latestElement(await fetchAEMETTimeline());
         return json({
           status: "ok",
           timestamp: latest.Fecha,
@@ -357,14 +444,17 @@ export default {
         const stored = await readStoredSnapshot(env);
         let latest: any = null;
         let aemetError: string | null = null;
-        try { latest = latestElement(await fetchAEMETTimeline()); }
-        catch (error) { aemetError = error instanceof Error ? error.message : String(error); }
+        try {
+          latest = latestElement(await fetchAEMETTimeline());
+        } catch (error) {
+          aemetError = error instanceof Error ? error.message : String(error);
+        }
+        const history = await historySummary(env);
 
-        const history = await historyStatus(env, 1000);
         return json({
           service: "DanaSafe Radar Backend",
           status: "ok",
-          version: "8.2-history.1",
+          version: "8.2-history.2",
           radar_timestamp: stored?.radar_timestamp ?? null,
           snapshot_generated_at: stored?.generated_at ?? null,
           hydrology_retrieved_at: stored?.hydrology?.retrieved_at ?? null,
@@ -372,7 +462,8 @@ export default {
           latest_aemet_timestamp: latest?.Fecha ?? null,
           in_sync: !!stored && !!latest && sameInstant(stored.radar_timestamp, latest.Fecha),
           history_enabled: true,
-          history_cycles_visible: history.cycles_returned,
+          history_latest_timestamp: history.latest_timestamp,
+          history_cycles_visible: null,
           archive_policy: "archive-before-live",
           aemet_error: aemetError,
         });
@@ -380,7 +471,12 @@ export default {
 
       if (path === "/radar/history" && request.method === "GET") {
         const requested = Number(url.searchParams.get("limit") ?? "100");
-        return json(await historyStatus(env, Number.isFinite(requested) ? requested : 100));
+        const cursor = url.searchParams.get("cursor");
+        return json(await historyStatus(
+          env,
+          Number.isFinite(requested) ? requested : 100,
+          cursor,
+        ));
       }
 
       if (path === "/radar/history/cycle" && request.method === "GET") {
@@ -399,8 +495,11 @@ export default {
         if (!Number.isInteger(frameNumber) || frameNumber < 1 || frameNumber > 10) {
           return json({ status: "error", error: "frame must be an integer from 1 to 10" }, 400);
         }
+
         const manifestObject = await env.SNAPSHOTS.get(`${prefix}/manifest.json`);
-        if (!manifestObject) return json({ status: "missing", message: "Archive manifest not found" }, 404);
+        if (!manifestObject) {
+          return json({ status: "missing", message: "Archive manifest not found" }, 404);
+        }
         const manifest = JSON.parse(await manifestObject.text());
         const key = manifest?.raw_frames?.[frameNumber - 1]?.r2_key
           ?? manifest?.raw_objects?.[frameNumber - 1];
@@ -412,7 +511,12 @@ export default {
 
       if (path === "/radar/snapshot" && request.method === "GET") {
         const object = await env.SNAPSHOTS.get(SNAPSHOT_KEY);
-        if (!object) return json({ status: "missing", message: "No published snapshot yet. POST /radar/refresh first." }, 404);
+        if (!object) {
+          return json(
+            { status: "missing", message: "No published snapshot yet. POST /radar/refresh first." },
+            404,
+          );
+        }
         const headers = new Headers();
         object.writeHttpMetadata(headers);
         headers.set("content-type", "application/json; charset=utf-8");
@@ -423,52 +527,68 @@ export default {
 
       if (path === "/radar/refresh" && request.method === "POST") {
         // 1) Ask AEMET directly, bypassing cache.
-        const timeline = await fetchAEMETTimeline();
-        const latest = latestElement(timeline);
-        const latestTimestamp = latest.Fecha as string;
+        const latestTimestamp = latestElement(await fetchAEMETTimeline()).Fecha as string;
 
-        // 2) If LIVE is already at the latest AEMET frame, return it immediately.
+        // 2) Fast path only when BOTH LIVE and the durable 8.2 archive already exist.
         const stored = await readStoredSnapshot(env);
-        if (stored && sameInstant(stored.radar_timestamp, latestTimestamp)) {
+        if (
+          stored
+          && sameInstant(stored.radar_timestamp, latestTimestamp)
+          && await archiveIsComplete(env, latestTimestamp)
+        ) {
           return json(stored, 200, {
             "x-danasafe-refresh": "unchanged",
             "x-aemet-latest": latestTimestamp,
+            "x-danasafe-history": "already-archived",
           });
         }
 
-        // 3) Build a fresh cycle in the Container.
+        // 3) Build/stage a target-specific cycle in the Container.
         let result = await runEngineRefresh(env, latestTimestamp);
 
-        // 4) Reconcile with AEMET once more in case a new ten-minute slot appeared.
-        const latestAfter = latestElement(await fetchAEMETTimeline());
-        const latestAfterTimestamp = latestAfter.Fecha as string;
-
+        // 4) Reconcile once if AEMET advances during processing.
+        const latestAfterTimestamp = latestElement(await fetchAEMETTimeline()).Fecha as string;
         if (!sameInstant(result.snapshot.radar_timestamp, latestAfterTimestamp)) {
           const producedMs = Date.parse(result.snapshot.radar_timestamp);
           const latestAfterMs = Date.parse(latestAfterTimestamp);
-          if (Number.isFinite(producedMs) && Number.isFinite(latestAfterMs) && producedMs < latestAfterMs) {
+          if (
+            Number.isFinite(producedMs)
+            && Number.isFinite(latestAfterMs)
+            && producedMs < latestAfterMs
+          ) {
             result = await runEngineRefresh(env, latestAfterTimestamp);
           }
         }
 
         if (!sameInstant(result.snapshot.radar_timestamp, latestAfterTimestamp)) {
-          throw new Error(`Pipeline/AEMET mismatch after reconciliation: pipeline=${result.snapshot.radar_timestamp} AEMET=${latestAfterTimestamp}`);
+          throw new Error(
+            `Pipeline/AEMET mismatch after reconciliation: pipeline=${result.snapshot.radar_timestamp} AEMET=${latestAfterTimestamp}`,
+          );
         }
 
-        // 5) V8.2 invariant: immutable history is committed and verified BEFORE LIVE changes.
+        // 5) Durable history commits before LIVE can advance.
         const archived = await archiveCycle(env, result.raw, result.snapshot);
 
-        // 6) Only after archive verification may the current atomic snapshot advance.
-        await persistLiveSnapshot(env, result.raw, result.snapshot);
+        // 6) Monotonic LIVE publish. If another request already published a newer
+        // cycle while we archived, keep the newer LIVE and return it to the client.
+        const publishState = await persistLiveSnapshot(env, result.raw, result.snapshot);
+        let responseRaw = result.raw;
+        let responseTimestamp = result.snapshot.radar_timestamp;
+        if (publishState === "skipped-newer-live") {
+          const current = await readStoredSnapshotRecord(env);
+          if (!current) throw new Error("LIVE snapshot disappeared after monotonic publish guard");
+          responseRaw = current.raw;
+          responseTimestamp = current.snapshot?.radar_timestamp ?? responseTimestamp;
+        }
 
-        // 7) Return the same bytes that were persisted as LIVE.
-        return new Response(result.raw, {
+        return new Response(responseRaw, {
           status: 200,
           headers: {
             "content-type": "application/json; charset=utf-8",
             "cache-control": "no-store, no-cache, must-revalidate",
-            "x-danasafe-refresh": "updated",
+            "x-danasafe-refresh": publishState === "updated" ? "updated" : "newer-live-preserved",
             "x-aemet-latest": latestAfterTimestamp,
+            "x-danasafe-live-timestamp": String(responseTimestamp),
             "x-danasafe-history": "archived",
             "x-danasafe-history-prefix": archived.prefix,
           },
