@@ -1,0 +1,12 @@
+{
+  "name": "danasafe-radar-v82-candidate",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-13",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "radar.YOUR_DOMAIN_HERE",
+      "custom_domain": true
+    }
+  ]
+}
