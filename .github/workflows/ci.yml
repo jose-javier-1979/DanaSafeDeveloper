@@ -129,26 +129,28 @@ jobs:
         run: |
           set -e
 
-          DEVICE="iPhone 17 Pro"
+          echo "=== AVAILABLE SIMULATORS ==="
+          xcrun simctl list devices available
 
-          RUNTIME="$(
-            xcrun simctl list runtimes |
-            awk '/iOS/ && /available/ {print $NF}' |
-            tail -n 1
+          UDID="$(
+            xcrun simctl list devices available |
+            awk '/iPhone 17 Pro \(/ {
+              gsub(/[()]/, "")
+              for (i = 1; i <= NF; i++) {
+                if ($i ~ /^[0-9A-Fa-f-]{36}$/) {
+                  print $i
+                  exit
+                }
+              }
+            }'
           )"
 
-          if [ -z "$RUNTIME" ]; then
-            echo "No iOS simulator runtime found"
+          if [ -z "$UDID" ]; then
+            echo "No available iPhone 17 Pro simulator found"
             exit 1
           fi
 
-          UDID="$(
-            xcrun simctl create \
-              "DanaSafe-CI-iPhone17Pro" \
-              "com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro" \
-              "$RUNTIME"
-          )"
-
+          echo "Selected simulator: $UDID"
           echo "udid=$UDID" >> "$GITHUB_OUTPUT"
 
       - name: Boot simulator
