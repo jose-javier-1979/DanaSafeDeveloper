@@ -10,8 +10,6 @@ import re
 import urllib.parse
 import urllib.request
 
-DEFAULT_BASE = "https://danasafe-radar.firefritz.workers.dev"
-
 
 def get(url: str) -> tuple[bytes, dict[str, str]]:
     req = urllib.request.Request(
@@ -116,7 +114,7 @@ def export_cycle(base: str, output: Path, timestamp: str) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base-url", default=DEFAULT_BASE)
+    parser.add_argument("--base-url", required=True, help="DanaSafe 8.2 history-capable backend URL")
     parser.add_argument("--output", required=True, help="Destination folder; may be inside Google Drive")
     parser.add_argument("--limit", type=int, default=100)
     parser.add_argument("--timestamp", help="Export only one exact archived radar timestamp")
@@ -128,12 +126,24 @@ def main() -> int:
     if args.timestamp:
         timestamps = [args.timestamp]
     else:
-        history = json_get(endpoint(args.base_url, "radar/history", limit=args.limit))
-        timestamps = [
-            str(item["radar_timestamp"])
-            for item in history.get("cycles", [])
-            if item.get("archive_complete") and item.get("radar_timestamp")
-        ]
+        wanted = max(1, args.limit)
+        timestamps = []
+        cursor = None
+        while len(timestamps) < wanted:
+            page_size = min(500, wanted - len(timestamps))
+            params = {"limit": page_size}
+            if cursor:
+                params["cursor"] = cursor
+            history = json_get(endpoint(args.base_url, "radar/history", **params))
+            page = [
+                str(item["radar_timestamp"])
+                for item in history.get("cycles", [])
+                if item.get("archive_complete") and item.get("radar_timestamp")
+            ]
+            timestamps.extend(page)
+            cursor = history.get("next_cursor")
+            if not cursor or not page:
+                break
 
     if not timestamps:
         print("No completed DanaSafe 8.2 archive cycles found.")
