@@ -129,7 +129,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json({
                 "status": "ok",
                 "engine": "DanaSafe Python/Pillow",
-                "version": "5.1-baseline.1",
+                "version": "8.2-history.1",
                 "radar_timestamp": snapshot_timestamp(),
             })
             return
