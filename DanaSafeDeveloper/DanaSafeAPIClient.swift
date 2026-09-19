@@ -20,6 +20,7 @@ struct DanaSafeBackendHealth: Decodable {
     let aemetError: String?
     let historyEnabled: Bool?
     let historyCyclesVisible: Int?
+    let historyLatestTimestamp: String?
     let archivePolicy: String?
 }
 
