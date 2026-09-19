@@ -5,14 +5,14 @@
 - Bundle ID: `com.firefritz.DanaSafeDeveloperV82`
 - iOS minimum: 17.0
 - iPhone only
-- Production endpoint: `https://danasafe-radar.firefritz.workers.dev`
-- Historical radar archive: R2 immutable cycle archive
-- Archive policy: archive-before-live
-- Per cycle: atomic snapshot + manifest + 10 raw AEMET frames
-- Historical retrieval endpoints:
-  - `GET /radar/history`
-  - `GET /radar/history/cycle?timestamp=...`
-  - `GET /radar/history/manifest?timestamp=...`
-  - `GET /radar/history/raw?timestamp=...&frame=1..10`
-- Container filesystem is treated as ephemeral and is not relied upon for retention.
-- Google Drive is deliberately not in the real-time critical path; it can be added later as a secondary export/backup target.
+- iOS production endpoint: `https://danasafe-radar.firefritz.workers.dev`
+- Frozen backend reference: `CloudflareV51/`
+- New history backend candidate: `CloudflareV82/`
+- Candidate Worker: `danasafe-radar-v82-candidate`
+- Candidate R2: `danasafe-radar-v82-candidate`
+- History policy: archive-before-live
+- Per cycle: snapshot + manifest + 10 raw AEMET frames + final index marker
+- History listing: newest-first, cursor-paginated
+- Container filesystem: scratch/staging only
+- Google Drive: optional verified secondary export, never in the live critical path
+- Production history status: not declared operational until candidate E2E validation and promotion.
