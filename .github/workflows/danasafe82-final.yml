@@ -101,6 +101,8 @@ jobs:
       - name: Simulator install and launch smoke
         run: |
           set -e
+          xcrun simctl boot "${{ steps.sim.outputs.udid }}" || true
+          xcrun simctl bootstatus "${{ steps.sim.outputs.udid }}" -b
           APP_PATH="$(find "$HOME/Library/Developer/Xcode/DerivedData" -path '*/Build/Products/Release-iphonesimulator/DanaSafeDeveloper.app' -print -quit)"
           test -n "$APP_PATH"
           echo "Installing $APP_PATH"
