@@ -81,9 +81,15 @@ jobs:
         run: |
           python3 -m compileall -q Engine Tests Tools CloudflareV51/container
 
-      - name: DanaSafe 8.1 verifier
+      - name: DanaSafe 8.2 archive verifier
         run: |
-          python3 Tests/verify_v81.py
+          python3 Tests/verify_v82.py
+
+      - name: Cloudflare TypeScript typecheck
+        run: |
+          cd CloudflareV51
+          npm install
+          npm run typecheck
 
       - name: Create Python virtual environment
         run: |
