@@ -256,11 +256,16 @@ final class DanaSafeModel: ObservableObject {
             if let radar = health.radarTimestamp { cloudflareHealth += " · radar \(radar)" }
             if let latest = health.latestAemetTimestamp { latestAEMETInfo = latest }
             if health.historyEnabled == true {
-                let cycles = health.historyCyclesVisible ?? 0
                 let policy = health.archivePolicy ?? "archive-before-live"
-                historyStatus = "ON · \(cycles) ciclos · \(policy)"
+                if let latestArchived = health.historyLatestTimestamp {
+                    historyStatus = "ON · último \(latestArchived) · \(policy)"
+                } else if let cycles = health.historyCyclesVisible {
+                    historyStatus = "ON · \(cycles) ciclos · \(policy)"
+                } else {
+                    historyStatus = "ON · \(policy)"
+                }
             } else {
-                historyStatus = "OFF"
+                historyStatus = "OFF · backend actual sin archivo 8.2"
             }
         } catch {
             cloudflareHealth = "Unavailable · \(error.localizedDescription)"
