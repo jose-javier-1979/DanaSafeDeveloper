@@ -106,3 +106,19 @@ No declarar 8.2 operativa hasta completar:
 7. Refresh real.
 8. Confirmación de que el timestamp LIVE aparece en histórico.
 9. Recuperación del manifest y 10 frames del ciclo real con hashes correctos.
+
+## 9. Saneamiento del CI heredado
+
+La auditoría de los runs previos de `main` confirmó que el Release build ya pasaba, pero `DanaSafeDeveloperUITests.testPrimaryNavigationAndNowcastHelp()` fallaba y el benchmark de lanzamiento multiplicaba ejecuciones y tiempo de simulador.
+
+8.2 corrige esa deuda previa mediante:
+
+- argumento `--ui-testing`;
+- startup con fixture local, sin llamada inicial a Cloudflare;
+- supresión de polling/consulta de permisos durante UI tests;
+- identificador estable `nowcast.help.dismiss`;
+- esperas explícitas por accessibility identifiers;
+- un único smoke launch en vez de todas las configuraciones UI;
+- benchmark de launch excluido de CI y conservado para ejecución manual.
+
+Esto no reduce la cobertura funcional del CI; elimina variabilidad de red, permisos y benchmark que no pertenecen a la prueba de navegación.
