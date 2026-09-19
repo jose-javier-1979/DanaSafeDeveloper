@@ -239,26 +239,55 @@ async function archiveCycle(env: Env, rawSnapshot: ArrayBuffer, snapshot: any): 
 }
 
 async function historyStatus(env: Env, limit = 50) {
-  const result = await env.SNAPSHOTS.list({ prefix: `${HISTORY_PREFIX}/`, limit: Math.min(Math.max(limit, 1), 1000) });
-  const snapshots = (result.objects ?? [])
-    .filter((item: any) => item.key.endsWith("/snapshot.json"))
-    .map((item: any) => ({
-      key: item.key,
-      uploaded: item.uploaded,
-      size: item.size,
-      radar_timestamp: item.customMetadata?.radar_timestamp ?? null,
-      archive_complete: item.customMetadata?.archive_complete === "true",
-      raw_frame_count: Number(item.customMetadata?.raw_frame_count ?? 0),
-    }))
-    .sort((a: any, b: any) => String(b.uploaded).localeCompare(String(a.uploaded)));
+  const boundedLimit = Math.min(Math.max(limit, 1), 500);
+  const result = await env.SNAPSHOTS.list({
+    prefix: `${HISTORY_PREFIX}/`,
+    delimiter: "/",
+    limit: boundedLimit,
+  });
 
+  const prefixes = (result.delimitedPrefixes ?? []).slice(0, boundedLimit);
+  const cycles = [];
+  for (const prefix of prefixes) {
+    const snapshotKey = `${prefix}snapshot.json`;
+    const object = await env.SNAPSHOTS.head(snapshotKey);
+    if (!object) continue;
+    cycles.push({
+      prefix,
+      snapshot_key: snapshotKey,
+      uploaded: object.uploaded,
+      size: object.size,
+      radar_timestamp: object.customMetadata?.radar_timestamp ?? null,
+      archive_complete: object.customMetadata?.archive_complete === "true",
+      raw_frame_count: Number(object.customMetadata?.raw_frame_count ?? 0),
+    });
+  }
+
+  cycles.sort((a: any, b: any) => String(b.radar_timestamp ?? "").localeCompare(String(a.radar_timestamp ?? "")));
   return {
     archive_version: "8.2",
-    cycles_returned: snapshots.length,
+    cycles_returned: cycles.length,
     truncated: !!result.truncated,
-    cycles: snapshots,
+    cycles,
   };
 }
+
+async function readArchiveObject(env: Env, key: string): Promise<Response> {
+  const object = await env.SNAPSHOTS.get(key);
+  if (!object) return json({ status: "missing", key }, 404);
+  const headers = new Headers();
+  object.writeHttpMetadata(headers);
+  headers.set("cache-control", "no-store, no-cache, must-revalidate");
+  headers.set("x-danasafe-source", "r2-history-archive");
+  return new Response(object.body, { status: 200, headers });
+}
+
+function historyTimestampFrom(url: URL): string {
+  const raw = url.searchParams.get("timestamp");
+  if (!raw) throw new Error("timestamp query parameter is required");
+  return raw;
+}
+
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -278,6 +307,9 @@ export default {
             "/radar/snapshot",
             "/radar/refresh",
             "/radar/history",
+            "/radar/history/cycle?timestamp=...",
+            "/radar/history/manifest?timestamp=...",
+            "/radar/history/raw?timestamp=...&frame=1",
             "/aemet/timeline",
             "/aemet/latest-image-info",
           ],
@@ -327,6 +359,32 @@ export default {
       if (path === "/radar/history" && request.method === "GET") {
         const requested = Number(url.searchParams.get("limit") ?? "100");
         return json(await historyStatus(env, Number.isFinite(requested) ? requested : 100));
+      }
+
+      if (path === "/radar/history/cycle" && request.method === "GET") {
+        const prefix = archivePrefix(historyTimestampFrom(url));
+        return readArchiveObject(env, `${prefix}/snapshot.json`);
+      }
+
+      if (path === "/radar/history/manifest" && request.method === "GET") {
+        const prefix = archivePrefix(historyTimestampFrom(url));
+        return readArchiveObject(env, `${prefix}/manifest.json`);
+      }
+
+      if (path === "/radar/history/raw" && request.method === "GET") {
+        const prefix = archivePrefix(historyTimestampFrom(url));
+        const frameNumber = Number(url.searchParams.get("frame") ?? "0");
+        if (!Number.isInteger(frameNumber) || frameNumber < 1 || frameNumber > 10) {
+          return json({ status: "error", error: "frame must be an integer from 1 to 10" }, 400);
+        }
+        const manifestObject = await env.SNAPSHOTS.get(`${prefix}/manifest.json`);
+        if (!manifestObject) return json({ status: "missing", message: "Archive manifest not found" }, 404);
+        const manifest = JSON.parse(await manifestObject.text());
+        const key = manifest?.raw_objects?.[frameNumber - 1];
+        if (!key || typeof key !== "string") {
+          return json({ status: "missing", message: `Raw frame ${frameNumber} not indexed` }, 404);
+        }
+        return readArchiveObject(env, key);
       }
 
       if (path === "/radar/snapshot" && request.method === "GET") {
