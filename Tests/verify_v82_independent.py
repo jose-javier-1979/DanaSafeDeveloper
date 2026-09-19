@@ -21,8 +21,8 @@ check("history lives in same authoritative R2", 'const HISTORY_PREFIX = "history
 # A cycle must be self-contained and recoverable.
 for suffix in ["/snapshot.json", "/manifest.json", "/raw/"]:
     check(f"cycle contains {suffix}", suffix in worker)
-check("manifest indexes raw objects", "raw_objects: frameKeys" in worker)
-check("raw retrieval follows manifest index", "manifest?.raw_objects?.[frameNumber - 1]" in worker)
+check("manifest indexes raw objects", "raw_objects: frameKeys" in worker)\ncheck("manifest carries portable hashes", "raw_frames: frameRecords" in worker and "sha256: frame.sha256" in worker and "bytes: frame.raw.byteLength" in worker)
+check("raw retrieval follows manifest index", "manifest?.raw_frames?.[frameNumber - 1]?.r2_key" in worker)
 check("cycle retrieval endpoint returns archived snapshot", 'readArchiveObject(env, `${prefix}/snapshot.json`)' in worker)
 check("manifest retrieval endpoint returns archived manifest", 'readArchiveObject(env, `${prefix}/manifest.json`)' in worker)
 
