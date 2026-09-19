@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Python syntax
-        run: python3 -m compileall -q Engine Tests Tools CloudflareV51/container
+        run: python3 -m compileall -q Engine Tests Tools CloudflareV82/container
 
       - name: Verification 1 — implementation integrity
         run: python3 Tests/verify_v82.py
@@ -31,7 +31,7 @@ jobs:
 
       - name: Cloudflare TypeScript
         run: |
-          cd CloudflareV51
+          cd CloudflareV82
           npm install
           npm run typecheck
 
