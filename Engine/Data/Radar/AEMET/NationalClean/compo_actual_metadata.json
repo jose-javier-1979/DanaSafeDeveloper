@@ -1,0 +1,10 @@
+{
+  "provider": "AEMET",
+  "product": "Composicion radar",
+  "region": "Penbal",
+  "timestamp": "2026-09-12T20:00:00+02:00",
+  "filename": "radw202609121800_3857.png",
+  "projection_hint": "EPSG:3857",
+  "source": "DanaSafe processed latest sequence frame",
+  "source_frame": 10
+}

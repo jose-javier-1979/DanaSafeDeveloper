@@ -1,0 +1,728 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A00000000000000000000022 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000022 /* Assets.xcassets */; };
+		A00000000000000000000023 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000023 /* PrivacyInfo.xcprivacy */; };
+		A00000000000000000000021 /* PrecipitationForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000021 /* PrecipitationForecast.swift */; };
+		A00000000000000000000020 /* QuantitativePrecipitationCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000020 /* QuantitativePrecipitationCore.swift */; };
+		A00000000000000000000001 /* DanaSafeDeveloperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000001 /* DanaSafeDeveloperApp.swift */; };
+		A00000000000000000000002 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000002 /* Models.swift */; };
+		A00000000000000000000003 /* DanaSafeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* DanaSafeModel.swift */; };
+		A00000000000000000000004 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* LocationService.swift */; };
+		A00000000000000000000005 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000005 /* SearchService.swift */; };
+		A00000000000000000000006 /* RadarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000006 /* RadarStyle.swift */; };
+		A00000000000000000000007 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000007 /* ContentView.swift */; };
+		A00000000000000000000009 /* DanaSafeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000009 /* DanaSafeAPIClient.swift */; };
+		A00000000000000000000011 /* radar_systems_v03.json in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000011 /* radar_systems_v03.json */; };
+		A00000000000000000000012 /* reliable_tracks.json in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000012 /* reliable_tracks.json */; };
+		A00000000000000000000013 /* national_marching_contours.json in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000013 /* national_marching_contours.json */; };
+		A00000000000000000000014 /* saih_stations.json in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000014 /* saih_stations.json */; };
+		A00000000000000000000015 /* NowcastModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000015 /* NowcastModels.swift */; };
+		A00000000000000000000016 /* NowcastEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000016 /* NowcastEvaluator.swift */; };
+		A00000000000000000000017 /* NowcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000017 /* NowcastView.swift */; };
+		A00000000000000000000018 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000018 /* NotificationManager.swift */; };
+		A00000000000000000000019 /* DanaSafeIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000019 /* DanaSafeIntents.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E28BB0EF305EA7E400CB098C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = G00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E00000000000000000000001;
+			remoteInfo = DanaSafeDeveloper;
+		};
+		E28BB0FE305EA8BE00CB098C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = G00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E00000000000000000000001;
+			remoteInfo = DanaSafeDeveloper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B00000000000000000000022 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B00000000000000000000023 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B00000000000000000000021 /* PrecipitationForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipitationForecast.swift; sourceTree = "<group>"; };
+		B00000000000000000000020 /* QuantitativePrecipitationCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitativePrecipitationCore.swift; sourceTree = "<group>"; };
+		B00000000000000000000000 /* DanaSafeDeveloper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanaSafeDeveloper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00000000000000000000001 /* DanaSafeDeveloperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanaSafeDeveloperApp.swift; sourceTree = "<group>"; };
+		B00000000000000000000002 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		B00000000000000000000003 /* DanaSafeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanaSafeModel.swift; sourceTree = "<group>"; };
+		B00000000000000000000004 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		B00000000000000000000005 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		B00000000000000000000006 /* RadarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarStyle.swift; sourceTree = "<group>"; };
+		B00000000000000000000007 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B00000000000000000000008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B00000000000000000000009 /* DanaSafeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanaSafeAPIClient.swift; sourceTree = "<group>"; };
+		B00000000000000000000011 /* radar_systems_v03.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = radar_systems_v03.json; sourceTree = "<group>"; };
+		B00000000000000000000012 /* reliable_tracks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = reliable_tracks.json; sourceTree = "<group>"; };
+		B00000000000000000000013 /* national_marching_contours.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = national_marching_contours.json; sourceTree = "<group>"; };
+		B00000000000000000000014 /* saih_stations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = saih_stations.json; sourceTree = "<group>"; };
+		B00000000000000000000015 /* NowcastModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowcastModels.swift; sourceTree = "<group>"; };
+		B00000000000000000000016 /* NowcastEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowcastEvaluator.swift; sourceTree = "<group>"; };
+		B00000000000000000000017 /* NowcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowcastView.swift; sourceTree = "<group>"; };
+		B00000000000000000000018 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		B00000000000000000000019 /* DanaSafeIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanaSafeIntents.swift; sourceTree = "<group>"; };
+		E28BB0EB305EA7E400CB098C /* DanaSafeDeveloperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DanaSafeDeveloperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E28BB0F8305EA8BE00CB098C /* DanaSafeDeveloperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DanaSafeDeveloperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E28BB0EC305EA7E400CB098C /* DanaSafeDeveloperTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DanaSafeDeveloperTests; sourceTree = "<group>"; };
+		E28BB0F9305EA8BE00CB098C /* DanaSafeDeveloperUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DanaSafeDeveloperUITests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C00000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28BB0E8305EA7E400CB098C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28BB0F5305EA8BE00CB098C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D00000000000000000000000 = {
+			isa = PBXGroup;
+			children = (
+				D00000000000000000000001 /* DanaSafeDeveloper */,
+				E28BB0EC305EA7E400CB098C /* DanaSafeDeveloperTests */,
+				E28BB0F9305EA8BE00CB098C /* DanaSafeDeveloperUITests */,
+				D00000000000000000000002 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D00000000000000000000001 /* DanaSafeDeveloper */ = {
+			isa = PBXGroup;
+			children = (
+				B00000000000000000000001 /* DanaSafeDeveloperApp.swift */,
+				B00000000000000000000002 /* Models.swift */,
+				B00000000000000000000003 /* DanaSafeModel.swift */,
+				B00000000000000000000009 /* DanaSafeAPIClient.swift */,
+				B00000000000000000000015 /* NowcastModels.swift */,
+				B00000000000000000000016 /* NowcastEvaluator.swift */,
+				B00000000000000000000017 /* NowcastView.swift */,
+				B00000000000000000000018 /* NotificationManager.swift */,
+				B00000000000000000000019 /* DanaSafeIntents.swift */,
+				B00000000000000000000020 /* QuantitativePrecipitationCore.swift */,
+				B00000000000000000000021 /* PrecipitationForecast.swift */,
+				B00000000000000000000004 /* LocationService.swift */,
+				B00000000000000000000005 /* SearchService.swift */,
+				B00000000000000000000006 /* RadarStyle.swift */,
+				B00000000000000000000007 /* ContentView.swift */,
+				B00000000000000000000008 /* Info.plist */,
+				B00000000000000000000022 /* Assets.xcassets */,
+				B00000000000000000000023 /* PrivacyInfo.xcprivacy */,
+				B00000000000000000000011 /* radar_systems_v03.json */,
+				B00000000000000000000012 /* reliable_tracks.json */,
+				B00000000000000000000013 /* national_marching_contours.json */,
+				B00000000000000000000014 /* saih_stations.json */,
+			);
+			path = DanaSafeDeveloper;
+			sourceTree = "<group>";
+		};
+		D00000000000000000000002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B00000000000000000000000 /* DanaSafeDeveloper.app */,
+				E28BB0EB305EA7E400CB098C /* DanaSafeDeveloperTests.xctest */,
+				E28BB0F8305EA8BE00CB098C /* DanaSafeDeveloperUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E00000000000000000000001 /* DanaSafeDeveloper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H00000000000000000000001 /* Build configuration list for PBXNativeTarget "DanaSafeDeveloper" */;
+			buildPhases = (
+				F00000000000000000000001 /* Sources */,
+				C00000000000000000000001 /* Frameworks */,
+				F00000000000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DanaSafeDeveloper;
+			productName = DanaSafeDeveloper;
+			productReference = B00000000000000000000000 /* DanaSafeDeveloper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E28BB0EA305EA7E400CB098C /* DanaSafeDeveloperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E28BB0F3305EA7E400CB098C /* Build configuration list for PBXNativeTarget "DanaSafeDeveloperTests" */;
+			buildPhases = (
+				E28BB0E7305EA7E400CB098C /* Sources */,
+				E28BB0E8305EA7E400CB098C /* Frameworks */,
+				E28BB0E9305EA7E400CB098C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E28BB0F0305EA7E400CB098C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E28BB0EC305EA7E400CB098C /* DanaSafeDeveloperTests */,
+			);
+			name = DanaSafeDeveloperTests;
+			packageProductDependencies = (
+			);
+			productName = DanaSafeDeveloperTests;
+			productReference = E28BB0EB305EA7E400CB098C /* DanaSafeDeveloperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E28BB0F7305EA8BE00CB098C /* DanaSafeDeveloperUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E28BB100305EA8BE00CB098C /* Build configuration list for PBXNativeTarget "DanaSafeDeveloperUITests" */;
+			buildPhases = (
+				E28BB0F4305EA8BE00CB098C /* Sources */,
+				E28BB0F5305EA8BE00CB098C /* Frameworks */,
+				E28BB0F6305EA8BE00CB098C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E28BB0FF305EA8BE00CB098C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E28BB0F9305EA8BE00CB098C /* DanaSafeDeveloperUITests */,
+			);
+			name = DanaSafeDeveloperUITests;
+			packageProductDependencies = (
+			);
+			productName = DanaSafeDeveloperUITests;
+			productReference = E28BB0F8305EA8BE00CB098C /* DanaSafeDeveloperUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		G00000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					E00000000000000000000001 = {
+						CreatedOnToolsVersion = 26.0;
+						DevelopmentTeam = DJS6XWD526;
+					};
+					E28BB0EA305EA7E400CB098C = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = E00000000000000000000001;
+					};
+					E28BB0F7305EA8BE00CB098C = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = E00000000000000000000001;
+					};
+				};
+			};
+			buildConfigurationList = H00000000000000000000000 /* Build configuration list for PBXProject "DanaSafeDeveloper" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D00000000000000000000000;
+			productRefGroup = D00000000000000000000002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E00000000000000000000001 /* DanaSafeDeveloper */,
+				E28BB0EA305EA7E400CB098C /* DanaSafeDeveloperTests */,
+				E28BB0F7305EA8BE00CB098C /* DanaSafeDeveloperUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E28BB0E9305EA7E400CB098C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28BB0F6305EA8BE00CB098C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F00000000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00000000000000000000022 /* Assets.xcassets in Resources */,
+				A00000000000000000000023 /* PrivacyInfo.xcprivacy in Resources */,
+				A00000000000000000000011 /* radar_systems_v03.json in Resources */,
+				A00000000000000000000012 /* reliable_tracks.json in Resources */,
+				A00000000000000000000013 /* national_marching_contours.json in Resources */,
+				A00000000000000000000014 /* saih_stations.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E28BB0E7305EA7E400CB098C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28BB0F4305EA8BE00CB098C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F00000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00000000000000000000001 /* DanaSafeDeveloperApp.swift in Sources */,
+				A00000000000000000000002 /* Models.swift in Sources */,
+				A00000000000000000000003 /* DanaSafeModel.swift in Sources */,
+				A00000000000000000000004 /* LocationService.swift in Sources */,
+				A00000000000000000000005 /* SearchService.swift in Sources */,
+				A00000000000000000000006 /* RadarStyle.swift in Sources */,
+				A00000000000000000000007 /* ContentView.swift in Sources */,
+				A00000000000000000000009 /* DanaSafeAPIClient.swift in Sources */,
+				A00000000000000000000015 /* NowcastModels.swift in Sources */,
+				A00000000000000000000016 /* NowcastEvaluator.swift in Sources */,
+				A00000000000000000000017 /* NowcastView.swift in Sources */,
+				A00000000000000000000018 /* NotificationManager.swift in Sources */,
+				A00000000000000000000019 /* DanaSafeIntents.swift in Sources */,
+				A00000000000000000000020 /* QuantitativePrecipitationCore.swift in Sources */,
+				A00000000000000000000021 /* PrecipitationForecast.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E28BB0F0305EA7E400CB098C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E00000000000000000000001 /* DanaSafeDeveloper */;
+			targetProxy = E28BB0EF305EA7E400CB098C /* PBXContainerItemProxy */;
+		};
+		E28BB0FF305EA8BE00CB098C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E00000000000000000000001 /* DanaSafeDeveloper */;
+			targetProxy = E28BB0FE305EA8BE00CB098C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E28BB0F1305EA7E400CB098C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6RR6KZ9T4;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firefritz.DanaSafeDeveloperV81Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DanaSafeDeveloper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DanaSafeDeveloper";
+			};
+			name = Debug;
+		};
+		E28BB0F2305EA7E400CB098C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6RR6KZ9T4;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firefritz.DanaSafeDeveloperV81Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DanaSafeDeveloper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DanaSafeDeveloper";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E28BB101305EA8BE00CB098C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6RR6KZ9T4;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firefritz.DanaSafeDeveloperV81UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = DanaSafeDeveloper;
+			};
+			name = Debug;
+		};
+		E28BB102305EA8BE00CB098C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6RR6KZ9T4;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firefritz.DanaSafeDeveloperV81UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = DanaSafeDeveloper;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		I00000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		I00000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		I00000000000000000000011 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 81;
+				DEVELOPMENT_TEAM = R6RR6KZ9T4;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DanaSafeDeveloper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 8.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firefritz.DanaSafeDeveloperV81;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		I00000000000000000000012 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 81;
+				DEVELOPMENT_TEAM = R6RR6KZ9T4;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DanaSafeDeveloper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 8.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firefritz.DanaSafeDeveloperV81;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E28BB0F3305EA7E400CB098C /* Build configuration list for PBXNativeTarget "DanaSafeDeveloperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E28BB0F1305EA7E400CB098C /* Debug */,
+				E28BB0F2305EA7E400CB098C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E28BB100305EA8BE00CB098C /* Build configuration list for PBXNativeTarget "DanaSafeDeveloperUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E28BB101305EA8BE00CB098C /* Debug */,
+				E28BB102305EA8BE00CB098C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		H00000000000000000000000 /* Build configuration list for PBXProject "DanaSafeDeveloper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				I00000000000000000000001 /* Debug */,
+				I00000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		H00000000000000000000001 /* Build configuration list for PBXNativeTarget "DanaSafeDeveloper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				I00000000000000000000011 /* Debug */,
+				I00000000000000000000012 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = G00000000000000000000001 /* Project object */;
+}

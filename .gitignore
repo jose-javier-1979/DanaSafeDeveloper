@@ -1,0 +1,43 @@
+# Xcode
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.xcscmblueprint
+
+# macOS
+.DS_Store
+
+# Swift
+.build/
+.swiftpm/
+
+# Archives / signing
+*.xcarchive
+*.ipa
+*.mobileprovision
+*.p12
+*.cer
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+*.p8
+Secrets/
+secrets/
+
+# Cloudflare local state
+.wrangler/
+.dev.vars
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs
+*.log

@@ -1,0 +1,84 @@
+{
+  "provider": "AEMET",
+  "product": "Composicion radar",
+  "region": "Penbal",
+  "frame_interval_minutes": 10,
+  "bounds": {
+    "west": -16.08,
+    "east": 12.14,
+    "south": 27.22,
+    "north": 51.3
+  },
+  "frames": [
+    {
+      "frame": 1,
+      "fecha": "2026-09-12T18:30:00+02:00",
+      "filename": "radw202609121630_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/01_radw202609121630_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121630_3857.png"
+    },
+    {
+      "frame": 2,
+      "fecha": "2026-09-12T18:40:00+02:00",
+      "filename": "radw202609121640_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/02_radw202609121640_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121640_3857.png"
+    },
+    {
+      "frame": 3,
+      "fecha": "2026-09-12T18:50:00+02:00",
+      "filename": "radw202609121650_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/03_radw202609121650_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121650_3857.png"
+    },
+    {
+      "frame": 4,
+      "fecha": "2026-09-12T19:00:00+02:00",
+      "filename": "radw202609121700_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/04_radw202609121700_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121700_3857.png"
+    },
+    {
+      "frame": 5,
+      "fecha": "2026-09-12T19:10:00+02:00",
+      "filename": "radw202609121710_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/05_radw202609121710_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121710_3857.png"
+    },
+    {
+      "frame": 6,
+      "fecha": "2026-09-12T19:20:00+02:00",
+      "filename": "radw202609121720_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/06_radw202609121720_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121720_3857.png"
+    },
+    {
+      "frame": 7,
+      "fecha": "2026-09-12T19:30:00+02:00",
+      "filename": "radw202609121730_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/07_radw202609121730_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121730_3857.png"
+    },
+    {
+      "frame": 8,
+      "fecha": "2026-09-12T19:40:00+02:00",
+      "filename": "radw202609121740_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/08_radw202609121740_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121740_3857.png"
+    },
+    {
+      "frame": 9,
+      "fecha": "2026-09-12T19:50:00+02:00",
+      "filename": "radw202609121750_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/09_radw202609121750_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121750_3857.png"
+    },
+    {
+      "frame": 10,
+      "fecha": "2026-09-12T20:00:00+02:00",
+      "filename": "radw202609121800_3857.png",
+      "local_file": "Data/Radar/AEMET/NationalSequence/10_radw202609121800_3857.png",
+      "url": "https://www.aemet.es/es/api-eltiempo/radar/imagen-radar/compo/radw202609121800_3857.png"
+    }
+  ]
+}

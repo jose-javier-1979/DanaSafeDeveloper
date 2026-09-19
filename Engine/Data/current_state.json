@@ -1,0 +1,30 @@
+{
+  "system": "DanaSafe",
+  "version": "0.1",
+  "timestamp": "2026-09-09T23:40:22.641636+02:00",
+  "sources": {
+    "radar": {
+      "source": "AEMET",
+      "status": "pending"
+    },
+    "hydrology": {
+      "source": "SAIH-CHJ",
+      "status": "online",
+      "station_count": 78,
+      "data_file": "saih_stations.json"
+    },
+    "terrain": {
+      "source": "IGN/CNIG",
+      "status": "pending"
+    },
+    "sensors": {
+      "source": "DanaSafe local network",
+      "status": "pending"
+    }
+  },
+  "prediction": {
+    "flood_risk": null,
+    "eta_minutes": null,
+    "confidence": null
+  }
+}

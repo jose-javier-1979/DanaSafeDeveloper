@@ -1,0 +1,880 @@
+[
+  {
+    "Producto": "Composicion radar",
+    "Region": "Penbal",
+    "lineaTiempo": [
+      "2026-09-11T20:00:00+02:00",
+      "2026-09-11T20:10:00+02:00",
+      "2026-09-11T20:20:00+02:00",
+      "2026-09-11T20:30:00+02:00",
+      "2026-09-11T20:40:00+02:00",
+      "2026-09-11T20:50:00+02:00",
+      "2026-09-11T21:00:00+02:00",
+      "2026-09-11T21:10:00+02:00",
+      "2026-09-11T21:20:00+02:00",
+      "2026-09-11T21:30:00+02:00",
+      "2026-09-11T21:40:00+02:00",
+      "2026-09-11T21:50:00+02:00",
+      "2026-09-11T22:00:00+02:00",
+      "2026-09-11T22:10:00+02:00",
+      "2026-09-11T22:20:00+02:00",
+      "2026-09-11T22:30:00+02:00",
+      "2026-09-11T22:40:00+02:00",
+      "2026-09-11T22:50:00+02:00",
+      "2026-09-11T23:00:00+02:00",
+      "2026-09-11T23:10:00+02:00",
+      "2026-09-11T23:20:00+02:00",
+      "2026-09-11T23:30:00+02:00",
+      "2026-09-11T23:40:00+02:00",
+      "2026-09-11T23:50:00+02:00",
+      "2026-09-12T00:00:00+02:00",
+      "2026-09-12T00:10:00+02:00",
+      "2026-09-12T00:20:00+02:00",
+      "2026-09-12T00:30:00+02:00",
+      "2026-09-12T00:40:00+02:00",
+      "2026-09-12T00:50:00+02:00",
+      "2026-09-12T01:00:00+02:00",
+      "2026-09-12T01:10:00+02:00",
+      "2026-09-12T01:20:00+02:00",
+      "2026-09-12T01:30:00+02:00",
+      "2026-09-12T01:40:00+02:00",
+      "2026-09-12T01:50:00+02:00",
+      "2026-09-12T02:00:00+02:00",
+      "2026-09-12T02:10:00+02:00",
+      "2026-09-12T02:20:00+02:00",
+      "2026-09-12T02:30:00+02:00",
+      "2026-09-12T02:40:00+02:00",
+      "2026-09-12T02:50:00+02:00",
+      "2026-09-12T03:00:00+02:00",
+      "2026-09-12T03:10:00+02:00",
+      "2026-09-12T03:20:00+02:00",
+      "2026-09-12T03:30:00+02:00",
+      "2026-09-12T03:40:00+02:00",
+      "2026-09-12T03:50:00+02:00",
+      "2026-09-12T04:00:00+02:00",
+      "2026-09-12T04:10:00+02:00",
+      "2026-09-12T04:20:00+02:00",
+      "2026-09-12T04:30:00+02:00",
+      "2026-09-12T04:40:00+02:00",
+      "2026-09-12T04:50:00+02:00",
+      "2026-09-12T05:00:00+02:00",
+      "2026-09-12T05:10:00+02:00",
+      "2026-09-12T05:20:00+02:00",
+      "2026-09-12T05:30:00+02:00",
+      "2026-09-12T05:40:00+02:00",
+      "2026-09-12T05:50:00+02:00",
+      "2026-09-12T06:00:00+02:00",
+      "2026-09-12T06:10:00+02:00",
+      "2026-09-12T06:20:00+02:00",
+      "2026-09-12T06:30:00+02:00",
+      "2026-09-12T06:40:00+02:00",
+      "2026-09-12T06:50:00+02:00",
+      "2026-09-12T07:00:00+02:00",
+      "2026-09-12T07:10:00+02:00",
+      "2026-09-12T07:20:00+02:00",
+      "2026-09-12T07:30:00+02:00",
+      "2026-09-12T07:40:00+02:00",
+      "2026-09-12T07:50:00+02:00",
+      "2026-09-12T08:00:00+02:00",
+      "2026-09-12T08:10:00+02:00",
+      "2026-09-12T08:20:00+02:00",
+      "2026-09-12T08:30:00+02:00",
+      "2026-09-12T08:40:00+02:00",
+      "2026-09-12T08:50:00+02:00",
+      "2026-09-12T09:00:00+02:00",
+      "2026-09-12T09:10:00+02:00",
+      "2026-09-12T09:20:00+02:00",
+      "2026-09-12T09:30:00+02:00",
+      "2026-09-12T09:40:00+02:00",
+      "2026-09-12T09:50:00+02:00",
+      "2026-09-12T10:00:00+02:00",
+      "2026-09-12T10:10:00+02:00",
+      "2026-09-12T10:20:00+02:00",
+      "2026-09-12T10:30:00+02:00",
+      "2026-09-12T10:40:00+02:00",
+      "2026-09-12T10:50:00+02:00",
+      "2026-09-12T11:00:00+02:00",
+      "2026-09-12T11:10:00+02:00",
+      "2026-09-12T11:20:00+02:00",
+      "2026-09-12T11:30:00+02:00",
+      "2026-09-12T11:40:00+02:00",
+      "2026-09-12T11:50:00+02:00",
+      "2026-09-12T12:00:00+02:00",
+      "2026-09-12T12:10:00+02:00",
+      "2026-09-12T12:20:00+02:00",
+      "2026-09-12T12:30:00+02:00",
+      "2026-09-12T12:40:00+02:00",
+      "2026-09-12T12:50:00+02:00",
+      "2026-09-12T13:00:00+02:00",
+      "2026-09-12T13:10:00+02:00",
+      "2026-09-12T13:20:00+02:00",
+      "2026-09-12T13:30:00+02:00",
+      "2026-09-12T13:40:00+02:00",
+      "2026-09-12T13:50:00+02:00",
+      "2026-09-12T14:00:00+02:00",
+      "2026-09-12T14:10:00+02:00",
+      "2026-09-12T14:20:00+02:00",
+      "2026-09-12T14:30:00+02:00",
+      "2026-09-12T14:40:00+02:00",
+      "2026-09-12T14:50:00+02:00",
+      "2026-09-12T15:00:00+02:00",
+      "2026-09-12T15:10:00+02:00",
+      "2026-09-12T15:20:00+02:00",
+      "2026-09-12T15:30:00+02:00",
+      "2026-09-12T15:40:00+02:00",
+      "2026-09-12T15:50:00+02:00",
+      "2026-09-12T16:00:00+02:00",
+      "2026-09-12T16:10:00+02:00",
+      "2026-09-12T16:20:00+02:00",
+      "2026-09-12T16:30:00+02:00",
+      "2026-09-12T16:40:00+02:00",
+      "2026-09-12T16:50:00+02:00",
+      "2026-09-12T17:00:00+02:00",
+      "2026-09-12T17:10:00+02:00",
+      "2026-09-12T17:20:00+02:00",
+      "2026-09-12T17:30:00+02:00",
+      "2026-09-12T17:40:00+02:00",
+      "2026-09-12T17:50:00+02:00",
+      "2026-09-12T18:00:00+02:00",
+      "2026-09-12T18:10:00+02:00",
+      "2026-09-12T18:20:00+02:00",
+      "2026-09-12T18:30:00+02:00",
+      "2026-09-12T18:40:00+02:00",
+      "2026-09-12T18:50:00+02:00",
+      "2026-09-12T19:00:00+02:00",
+      "2026-09-12T19:10:00+02:00",
+      "2026-09-12T19:20:00+02:00",
+      "2026-09-12T19:30:00+02:00",
+      "2026-09-12T19:40:00+02:00",
+      "2026-09-12T19:50:00+02:00",
+      "2026-09-12T20:00:00+02:00"
+    ],
+    "Elementos": [
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T20:40:00+02:00",
+        "Nombre fichero": "radw202609111840_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T08:50:00+02:00",
+        "Nombre fichero": "radw202609120650_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T10:20:00+02:00",
+        "Nombre fichero": "radw202609120820_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T16:50:00+02:00",
+        "Nombre fichero": "radw202609121450_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T06:40:00+02:00",
+        "Nombre fichero": "radw202609120440_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T18:20:00+02:00",
+        "Nombre fichero": "radw202609121620_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T20:00:00+02:00",
+        "Nombre fichero": "radw202609111800_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T08:10:00+02:00",
+        "Nombre fichero": "radw202609120610_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T14:40:00+02:00",
+        "Nombre fichero": "radw202609121240_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T04:30:00+02:00",
+        "Nombre fichero": "radw202609120230_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T16:10:00+02:00",
+        "Nombre fichero": "radw202609121410_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T22:50:00+02:00",
+        "Nombre fichero": "radw202609112050_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T06:00:00+02:00",
+        "Nombre fichero": "radw202609120400_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T00:20:00+02:00",
+        "Nombre fichero": "radw202609112220_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T12:30:00+02:00",
+        "Nombre fichero": "radw202609121030_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T02:20:00+02:00",
+        "Nombre fichero": "radw202609120020_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T14:00:00+02:00",
+        "Nombre fichero": "radw202609121200_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T21:40:00+02:00",
+        "Nombre fichero": "radw202609111940_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T09:50:00+02:00",
+        "Nombre fichero": "radw202609120750_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T22:10:00+02:00",
+        "Nombre fichero": "radw202609112010_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T11:20:00+02:00",
+        "Nombre fichero": "radw202609120920_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T17:50:00+02:00",
+        "Nombre fichero": "radw202609121550_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T07:40:00+02:00",
+        "Nombre fichero": "radw202609120540_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T19:20:00+02:00",
+        "Nombre fichero": "radw202609121720_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T21:00:00+02:00",
+        "Nombre fichero": "radw202609111900_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T09:10:00+02:00",
+        "Nombre fichero": "radw202609120710_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T15:40:00+02:00",
+        "Nombre fichero": "radw202609121340_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T05:30:00+02:00",
+        "Nombre fichero": "radw202609120330_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T17:10:00+02:00",
+        "Nombre fichero": "radw202609121510_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T23:50:00+02:00",
+        "Nombre fichero": "radw202609112150_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T07:00:00+02:00",
+        "Nombre fichero": "radw202609120500_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T01:20:00+02:00",
+        "Nombre fichero": "radw202609112320_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T13:30:00+02:00",
+        "Nombre fichero": "radw202609121130_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T03:20:00+02:00",
+        "Nombre fichero": "radw202609120120_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T15:00:00+02:00",
+        "Nombre fichero": "radw202609121300_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T10:50:00+02:00",
+        "Nombre fichero": "radw202609120850_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T23:10:00+02:00",
+        "Nombre fichero": "radw202609112110_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T18:50:00+02:00",
+        "Nombre fichero": "radw202609121650_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T20:30:00+02:00",
+        "Nombre fichero": "radw202609111830_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T08:40:00+02:00",
+        "Nombre fichero": "radw202609120640_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T10:10:00+02:00",
+        "Nombre fichero": "radw202609120810_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T16:40:00+02:00",
+        "Nombre fichero": "radw202609121440_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T06:30:00+02:00",
+        "Nombre fichero": "radw202609120430_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T18:10:00+02:00",
+        "Nombre fichero": "radw202609121610_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T00:50:00+02:00",
+        "Nombre fichero": "radw202609112250_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T08:00:00+02:00",
+        "Nombre fichero": "radw202609120600_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T02:50:00+02:00",
+        "Nombre fichero": "radw202609120050_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T14:30:00+02:00",
+        "Nombre fichero": "radw202609121230_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T04:20:00+02:00",
+        "Nombre fichero": "radw202609120220_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T16:00:00+02:00",
+        "Nombre fichero": "radw202609121400_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T22:40:00+02:00",
+        "Nombre fichero": "radw202609112040_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T11:50:00+02:00",
+        "Nombre fichero": "radw202609120950_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T00:10:00+02:00",
+        "Nombre fichero": "radw202609112210_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T12:20:00+02:00",
+        "Nombre fichero": "radw202609121020_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T19:50:00+02:00",
+        "Nombre fichero": "radw202609121750_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T02:10:00+02:00",
+        "Nombre fichero": "radw202609120010_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T21:30:00+02:00",
+        "Nombre fichero": "radw202609111930_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T09:40:00+02:00",
+        "Nombre fichero": "radw202609120740_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T22:00:00+02:00",
+        "Nombre fichero": "radw202609112000_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T11:10:00+02:00",
+        "Nombre fichero": "radw202609120910_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T17:40:00+02:00",
+        "Nombre fichero": "radw202609121540_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T07:30:00+02:00",
+        "Nombre fichero": "radw202609120530_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T19:10:00+02:00",
+        "Nombre fichero": "radw202609121710_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T01:50:00+02:00",
+        "Nombre fichero": "radw202609112350_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T09:00:00+02:00",
+        "Nombre fichero": "radw202609120700_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T03:50:00+02:00",
+        "Nombre fichero": "radw202609120150_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T15:30:00+02:00",
+        "Nombre fichero": "radw202609121330_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T05:20:00+02:00",
+        "Nombre fichero": "radw202609120320_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T17:00:00+02:00",
+        "Nombre fichero": "radw202609121500_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T23:40:00+02:00",
+        "Nombre fichero": "radw202609112140_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T01:10:00+02:00",
+        "Nombre fichero": "radw202609112310_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T13:20:00+02:00",
+        "Nombre fichero": "radw202609121120_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T03:10:00+02:00",
+        "Nombre fichero": "radw202609120110_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T10:40:00+02:00",
+        "Nombre fichero": "radw202609120840_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T23:00:00+02:00",
+        "Nombre fichero": "radw202609112100_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T18:40:00+02:00",
+        "Nombre fichero": "radw202609121640_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T20:20:00+02:00",
+        "Nombre fichero": "radw202609111820_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T08:30:00+02:00",
+        "Nombre fichero": "radw202609120630_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T10:00:00+02:00",
+        "Nombre fichero": "radw202609120800_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T04:50:00+02:00",
+        "Nombre fichero": "radw202609120250_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T16:30:00+02:00",
+        "Nombre fichero": "radw202609121430_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T06:20:00+02:00",
+        "Nombre fichero": "radw202609120420_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T18:00:00+02:00",
+        "Nombre fichero": "radw202609121600_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T00:40:00+02:00",
+        "Nombre fichero": "radw202609112240_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T12:50:00+02:00",
+        "Nombre fichero": "radw202609121050_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T02:40:00+02:00",
+        "Nombre fichero": "radw202609120040_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T14:20:00+02:00",
+        "Nombre fichero": "radw202609121220_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T04:10:00+02:00",
+        "Nombre fichero": "radw202609120210_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T22:30:00+02:00",
+        "Nombre fichero": "radw202609112030_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T11:40:00+02:00",
+        "Nombre fichero": "radw202609120940_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T00:00:00+02:00",
+        "Nombre fichero": "radw202609112200_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T12:10:00+02:00",
+        "Nombre fichero": "radw202609121010_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T19:40:00+02:00",
+        "Nombre fichero": "radw202609121740_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T02:00:00+02:00",
+        "Nombre fichero": "radw202609120000_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T21:20:00+02:00",
+        "Nombre fichero": "radw202609111920_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T09:30:00+02:00",
+        "Nombre fichero": "radw202609120730_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T11:00:00+02:00",
+        "Nombre fichero": "radw202609120900_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T05:50:00+02:00",
+        "Nombre fichero": "radw202609120350_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T17:30:00+02:00",
+        "Nombre fichero": "radw202609121530_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T07:20:00+02:00",
+        "Nombre fichero": "radw202609120520_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T19:00:00+02:00",
+        "Nombre fichero": "radw202609121700_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T01:40:00+02:00",
+        "Nombre fichero": "radw202609112340_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T13:50:00+02:00",
+        "Nombre fichero": "radw202609121150_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T03:40:00+02:00",
+        "Nombre fichero": "radw202609120140_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T15:20:00+02:00",
+        "Nombre fichero": "radw202609121320_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T05:10:00+02:00",
+        "Nombre fichero": "radw202609120310_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T23:30:00+02:00",
+        "Nombre fichero": "radw202609112130_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T01:00:00+02:00",
+        "Nombre fichero": "radw202609112300_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T13:10:00+02:00",
+        "Nombre fichero": "radw202609121110_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T20:50:00+02:00",
+        "Nombre fichero": "radw202609111850_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T03:00:00+02:00",
+        "Nombre fichero": "radw202609120100_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T10:30:00+02:00",
+        "Nombre fichero": "radw202609120830_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T06:50:00+02:00",
+        "Nombre fichero": "radw202609120450_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T18:30:00+02:00",
+        "Nombre fichero": "radw202609121630_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T20:10:00+02:00",
+        "Nombre fichero": "radw202609111810_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T08:20:00+02:00",
+        "Nombre fichero": "radw202609120620_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T20:00:00+02:00",
+        "Nombre fichero": "radw202609121800_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T14:50:00+02:00",
+        "Nombre fichero": "radw202609121250_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T04:40:00+02:00",
+        "Nombre fichero": "radw202609120240_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T16:20:00+02:00",
+        "Nombre fichero": "radw202609121420_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T06:10:00+02:00",
+        "Nombre fichero": "radw202609120410_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T00:30:00+02:00",
+        "Nombre fichero": "radw202609112230_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T12:40:00+02:00",
+        "Nombre fichero": "radw202609121040_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T02:30:00+02:00",
+        "Nombre fichero": "radw202609120030_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T14:10:00+02:00",
+        "Nombre fichero": "radw202609121210_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T21:50:00+02:00",
+        "Nombre fichero": "radw202609111950_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T04:00:00+02:00",
+        "Nombre fichero": "radw202609120200_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T22:20:00+02:00",
+        "Nombre fichero": "radw202609112020_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T11:30:00+02:00",
+        "Nombre fichero": "radw202609120930_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T12:00:00+02:00",
+        "Nombre fichero": "radw202609121000_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T07:50:00+02:00",
+        "Nombre fichero": "radw202609120550_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T19:30:00+02:00",
+        "Nombre fichero": "radw202609121730_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T21:10:00+02:00",
+        "Nombre fichero": "radw202609111910_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T09:20:00+02:00",
+        "Nombre fichero": "radw202609120720_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T15:50:00+02:00",
+        "Nombre fichero": "radw202609121350_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T05:40:00+02:00",
+        "Nombre fichero": "radw202609120340_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T17:20:00+02:00",
+        "Nombre fichero": "radw202609121520_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T07:10:00+02:00",
+        "Nombre fichero": "radw202609120510_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T01:30:00+02:00",
+        "Nombre fichero": "radw202609112330_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T13:40:00+02:00",
+        "Nombre fichero": "radw202609121140_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T03:30:00+02:00",
+        "Nombre fichero": "radw202609120130_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T15:10:00+02:00",
+        "Nombre fichero": "radw202609121310_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T05:00:00+02:00",
+        "Nombre fichero": "radw202609120300_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-11T23:20:00+02:00",
+        "Nombre fichero": "radw202609112120_3857.png"
+      },
+      {
+        "producto": "Composicion radar",
+        "Fecha": "2026-09-12T13:00:00+02:00",
+        "Nombre fichero": "radw202609121100_3857.png"
+      }
+    ]
+  }
+]

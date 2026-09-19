@@ -1,0 +1,6 @@
+DanaSafe 5.1 Baseline
+Baseline ID: 5.1-baseline.1
+Purpose: audited, reproducible pre-V6 reference implementation.
+
+This baseline does not add Nowcast, notifications or Siri.
+It fixes/guards infrastructure, reproducibility and contract issues only.

@@ -1,0 +1,5 @@
+DanaSafe Version 5.1
+Build: 51
+Primary API: https://danasafe-radar.firefritz.workers.dev
+Remote refresh: POST /radar/refresh
+Backend architecture: Cloudflare Worker + Container + R2

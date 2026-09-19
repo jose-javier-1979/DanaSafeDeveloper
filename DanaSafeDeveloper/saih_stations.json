@@ -1,0 +1,1177 @@
+{
+  "source": "SAIH-CHJ",
+  "retrieved_at": "2026-09-09T23:40:22.640476+02:00",
+  "station_count": 78,
+  "stations": [
+    {
+      "id": "12812",
+      "station": "EA 99 SALIDA ULLDECONA",
+      "variable": "CAUDAL RÍO CENIA",
+      "flow_m3s": 0.54,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 75.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "14761",
+      "station": "MC LA SÈNIA",
+      "variable": "CAUDAL RÍO CENIA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 75.0,
+        "red": 200.0
+      },
+      "time": "23:20",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13431",
+      "station": "MC TRAIGUERA",
+      "variable": "CAUDAL RÍO SERVOL",
+      "flow_m3s": 0.05,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 100.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13420",
+      "station": "MC CERVERA DEL MAESTRE",
+      "variable": "CAUDAL RÍO CERVERA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 100.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16700",
+      "station": "EMBALSE DE VALBONA",
+      "variable": "CAUDAL SALIDA RÍO VALBONA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 2.0,
+        "orange": 10.0,
+        "red": 20.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13526",
+      "station": "EA 30 EL TERDE",
+      "variable": "CAUDAL RÍO MIJARES",
+      "flow_m3s": 0.09,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 50.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16701",
+      "station": "EMBALSE DE MORA",
+      "variable": "CAUDAL SALIDA RÍO DE MORA",
+      "flow_m3s": 0.07,
+      "thresholds_m3s": {
+        "yellow": 3.0,
+        "orange": 10.0,
+        "red": 20.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16690",
+      "station": "EMBALSE DE BALAGUERAS",
+      "variable": "CAUDAL SALIDA RÍO PALOMAREJAS",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 3.0,
+        "orange": 10.0,
+        "red": 50.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2725",
+      "station": "EA 134 LOS CANTOS",
+      "variable": "CAUDAL RÍO MIJARES",
+      "flow_m3s": 2.91,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 125.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2726",
+      "station": "EA 145 SALIDA DE ARENÓS",
+      "variable": "CAUDAL RÍO MIJARES",
+      "flow_m3s": 0.69,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 50.0,
+        "red": 70.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16687",
+      "station": "EMBALSE DE SICHAR",
+      "variable": "CAUDAL SALIDA RÍO MIJARES",
+      "flow_m3s": 6.95,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 60.0,
+        "red": 100.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2700",
+      "station": "EA 5 LA PRESA DE VILA-REAL",
+      "variable": "CAUDAL RÍO MIJARES",
+      "flow_m3s": 4.58,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 150.0,
+        "red": 300.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13707",
+      "station": "MC ATZENETA DEL MAESTRAT",
+      "variable": "CAUDAL RÍO MONLEÓN",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 50.0,
+        "red": 100.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16684",
+      "station": "EMBALSE DE L'ALCORA",
+      "variable": "CAUDAL SALIDA RÍO ALCORA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 50.0,
+        "red": 100.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13917",
+      "station": "MC VALL D'ALBA",
+      "variable": "CAUDAL RAMBLA DE LA VIUDA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 200.0,
+        "red": 400.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16688",
+      "station": "EMBALSE DE MARÍA CRISTINA",
+      "variable": "CAUDAL SALIDA RAMBLA DE LA VIUDA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 150.0,
+        "red": 300.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2720",
+      "station": "EA 148 JÉRICA",
+      "variable": "CAUDAL RÍO PALANCIA",
+      "flow_m3s": 0.02,
+      "thresholds_m3s": {
+        "yellow": 25.0,
+        "orange": 50.0,
+        "red": 100.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12810",
+      "station": "EA 74 FUENTE DEL BAÑO",
+      "variable": "CAUDAL RÍO PALANCIA",
+      "flow_m3s": 0.35,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 50.0,
+        "red": 120.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16682",
+      "station": "EMBALSE DE ALGAR",
+      "variable": "CAUDAL SALIDA RÍO PALANCIA",
+      "flow_m3s": 0.07,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 100.0,
+        "red": 150.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2737",
+      "station": "EA 14 TRAMACASTILLA",
+      "variable": "CAUDAL RÍO GUADALAVIAR",
+      "flow_m3s": 0.63,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 15.0,
+        "red": 25.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2688",
+      "station": "EA 149 GEA DE ALBARRACÍN",
+      "variable": "CAUDAL RÍO GUADALAVIAR",
+      "flow_m3s": 0.39,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 20.0,
+        "red": 30.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13952",
+      "station": "EA 96 SALIDA DE ARQUILLO",
+      "variable": "CAUDAL RÍO GUADALAVIAR",
+      "flow_m3s": 0.64,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 20.0,
+        "red": 30.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13683",
+      "station": "EA 28 VILLALBA ALTA",
+      "variable": "CAUDAL RÍO ALFAMBRA",
+      "flow_m3s": 0.12,
+      "thresholds_m3s": {
+        "yellow": 5.0,
+        "orange": 20.0,
+        "red": 40.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12924",
+      "station": "EA 27 TERUEL ALFAMBRA",
+      "variable": "CAUDAL RÍO ALFAMBRA",
+      "flow_m3s": 0.16,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 25.0,
+        "red": 35.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12927",
+      "station": "EA 15 TERUEL TURIA",
+      "variable": "CAUDAL RÍO TURIA",
+      "flow_m3s": 0.64,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 40.0,
+        "red": 50.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2690",
+      "station": "EA 103 TORREALTA",
+      "variable": "CAUDAL RÍO TÚRIA",
+      "flow_m3s": 0.93,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 35.0,
+        "red": 50.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2683",
+      "station": "EA 104 LOS SANTOS",
+      "variable": "CAUDAL RÍO EBRÓN",
+      "flow_m3s": 0.89,
+      "thresholds_m3s": {
+        "yellow": 5.0,
+        "orange": 10.0,
+        "red": 20.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13670",
+      "station": "EA 18 ZAGRA",
+      "variable": "CAUDAL RÍO TURIA",
+      "flow_m3s": 2.85,
+      "thresholds_m3s": {
+        "yellow": 30.0,
+        "orange": 50.0,
+        "red": 75.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13617",
+      "station": "EA 120 CALLES",
+      "variable": "CAUDAL RÍO TUÉJAR",
+      "flow_m3s": 0.65,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 25.0,
+        "red": 50.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13792",
+      "station": "MC CARRAIXET BÉTERA",
+      "variable": "CAUDAL BARRANCO DE CARRAIXET",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 120.0,
+        "red": 300.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12905",
+      "station": "EA 147 SALIDA LORIGUILLA",
+      "variable": "CAUDAL RÍO TURIA",
+      "flow_m3s": 6.59,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 60.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13896",
+      "station": "MC RAMBLA CASTELLANA",
+      "variable": "CAUDAL RAMBLA CASTELLANA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 35.0,
+        "orange": 80.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13897",
+      "station": "MC RAMBLA PRIMERA",
+      "variable": "CAUDAL RAMBLA PRIMERA",
+      "flow_m3s": 1.52,
+      "thresholds_m3s": {
+        "yellow": 100.0,
+        "orange": 200.0,
+        "red": 300.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12808",
+      "station": "MC VILAMARXANT",
+      "variable": "CAUDAL RÍO TURIA",
+      "flow_m3s": 7.97,
+      "thresholds_m3s": {
+        "yellow": 40.0,
+        "orange": 80.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "1523",
+      "station": "EA 25 AGUAS POTABLES",
+      "variable": "CAUDAL RÍO TURIA",
+      "flow_m3s": 7.71,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 100.0,
+        "red": 200.0
+      },
+      "time": "23:30",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "14450",
+      "station": "AZUD REPARTIMENT",
+      "variable": "CAUDAL RÍO TURIA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 100.0,
+        "orange": 500.0,
+        "red": 1000.0
+      },
+      "time": "23:20",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13873",
+      "station": "MC RAMBLA POYO N-III",
+      "variable": "CAUDAL RAMBLA DE POYO",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 30.0,
+        "orange": 70.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13403",
+      "station": "EA 60 REQUENA",
+      "variable": "CAUDAL RÍO MAGRO",
+      "flow_m3s": 0.11,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 30.0,
+        "red": 60.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16696",
+      "station": "EMBALSE DE FORATA",
+      "variable": "CAUDAL SALIDA RÍO MAGRO",
+      "flow_m3s": 0.07,
+      "thresholds_m3s": {
+        "yellow": 5.0,
+        "orange": 30.0,
+        "red": 100.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16915",
+      "station": "EA 93 MACASTRE",
+      "variable": "CAUDAL RÍO MAGRO",
+      "flow_m3s": 0.2,
+      "thresholds_m3s": {
+        "yellow": 5.0,
+        "orange": 30.0,
+        "red": 100.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "14551",
+      "station": "MC GUADASSUAR",
+      "variable": "CAUDAL RÍO MAGRO",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 30.0,
+        "orange": 150.0,
+        "red": 300.0
+      },
+      "time": "23:20",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2689",
+      "station": "EA 126 MOLINO DE JUAN ROMERO",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 0.87,
+      "thresholds_m3s": {
+        "yellow": 40.0,
+        "orange": 75.0,
+        "red": 125.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2736",
+      "station": "EA 32 CUENCA",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 3.96,
+      "thresholds_m3s": {
+        "yellow": 70.0,
+        "orange": 110.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2695",
+      "station": "EA 91 SAN LORENZO DE LA PARRILLA",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 3.22,
+      "thresholds_m3s": {
+        "yellow": 100.0,
+        "orange": 200.0,
+        "red": 400.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "14051",
+      "station": "EA 87 MARIMOTA",
+      "variable": "CAUDAL RÍO MARIMOTA",
+      "flow_m3s": 0.19,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 20.0,
+        "red": 30.0
+      },
+      "time": "23:20",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2716",
+      "station": "EA 107 SALIDA ALARCÓN",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 31.7,
+      "thresholds_m3s": {
+        "yellow": 40.0,
+        "orange": 50.0,
+        "red": 75.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2735",
+      "station": "EA 90 PAJARONCILLO",
+      "variable": "CAUDAL RÍO CABRIEL",
+      "flow_m3s": 2.29,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 100.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12799",
+      "station": "EA 139 VÍLLORA",
+      "variable": "CAUDAL RÍO CABRIEL",
+      "flow_m3s": 6.46,
+      "thresholds_m3s": {
+        "yellow": 75.0,
+        "orange": 125.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2680",
+      "station": "EA 140 RIO HUÉRCEMES",
+      "variable": "CAUDAL RÍO GUADAZAÓN",
+      "flow_m3s": 0.5,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 40.0,
+        "red": 80.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2681",
+      "station": "EA 141 SAN MARTÍN",
+      "variable": "CAUDAL RÍO SAN MARTÍN",
+      "flow_m3s": 0.02,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 40.0,
+        "red": 70.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12962",
+      "station": "EA 130 SALIDA CONTRERAS",
+      "variable": "CAUDAL RÍO CABRIEL",
+      "flow_m3s": 1.96,
+      "thresholds_m3s": {
+        "yellow": 25.0,
+        "orange": 75.0,
+        "red": 150.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2696",
+      "station": "EA 129 EL PICAZO",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 3.7,
+      "thresholds_m3s": {
+        "yellow": 25.0,
+        "orange": 40.0,
+        "red": 50.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "15280",
+      "station": "EA 132 EL CARRASCO",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 2.08,
+      "thresholds_m3s": {
+        "yellow": 40.0,
+        "orange": 50.0,
+        "red": 70.0
+      },
+      "time": "23:15",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2691",
+      "station": "EA 36 LOS FRAILES",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 2.05,
+      "thresholds_m3s": {
+        "yellow": 40.0,
+        "orange": 50.0,
+        "red": 70.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2687",
+      "station": "EA 137 TÍRIEZ",
+      "variable": "CAUDAL RÍO LEZUZA",
+      "flow_m3s": 0.08,
+      "thresholds_m3s": {
+        "yellow": 8.0,
+        "orange": 20.0,
+        "red": 50.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2749",
+      "station": "EA 98 RÍO JARDÍN",
+      "variable": "CAUDAL RÍO JARDÍN",
+      "flow_m3s": 0.53,
+      "thresholds_m3s": {
+        "yellow": 3.0,
+        "orange": 5.0,
+        "red": 7.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2693",
+      "station": "EA 97 MONTEMAYOR",
+      "variable": "CAUDAL RÍO MIRÓN (S. PEDRO)",
+      "flow_m3s": 0.29,
+      "thresholds_m3s": {
+        "yellow": 6.0,
+        "orange": 20.0,
+        "red": 35.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2679",
+      "station": "EA 138 BALAZOTE",
+      "variable": "CAUDAL RÍO DON JUAN",
+      "flow_m3s": 0.17,
+      "thresholds_m3s": {
+        "yellow": 5.0,
+        "orange": 10.0,
+        "red": 15.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12836",
+      "station": "EA 144 ALCALÁ DEL JÚCAR",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 2.35,
+      "thresholds_m3s": {
+        "yellow": 30.0,
+        "orange": 40.0,
+        "red": 70.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12901",
+      "station": "MC VILLATOYA",
+      "variable": "CAUDAL RÍO CABRIEL",
+      "flow_m3s": 8.75,
+      "thresholds_m3s": {
+        "yellow": 75.0,
+        "orange": 200.0,
+        "red": 400.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13080",
+      "station": "EA 42 SALIDA DE TOUS",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 150.0,
+        "red": 250.0
+      },
+      "time": "23:25",
+      "status": "failure",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2701",
+      "station": "MC ESTUBENY",
+      "variable": "CAUDAL RÍO SELLENT",
+      "flow_m3s": 0.08,
+      "thresholds_m3s": {
+        "yellow": 35.0,
+        "orange": 100.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "12827",
+      "station": "EA 29 MONTAVERNER",
+      "variable": "CAUDAL RÍO ALBAIDA",
+      "flow_m3s": 4.75,
+      "thresholds_m3s": {
+        "yellow": 40.0,
+        "orange": 120.0,
+        "red": 250.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13728",
+      "station": "EMBALSE DE BELLÚS",
+      "variable": "CAUDAL SALIDA RÍO ALBAIDA",
+      "flow_m3s": 1.46,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 60.0,
+        "red": 120.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13722",
+      "station": "MC MOIXENT",
+      "variable": "CAUDAL RÍO CANYOLES",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 30.0,
+        "orange": 50.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13102",
+      "station": "MC CANALS",
+      "variable": "CAUDAL RÍO CAÑOLES",
+      "flow_m3s": 0.51,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 75.0,
+        "red": 250.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2443",
+      "station": "MC MANUEL",
+      "variable": "CAUDAL RÍO ALBAIDA",
+      "flow_m3s": 1.12,
+      "thresholds_m3s": {
+        "yellow": 50.0,
+        "orange": 150.0,
+        "red": 250.0
+      },
+      "time": "23:30",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13070",
+      "station": "EA 89 HUERTO MULET",
+      "variable": "CAUDAL RÍO JÚCAR",
+      "flow_m3s": 19.22,
+      "thresholds_m3s": {
+        "yellow": 200.0,
+        "orange": 300.0,
+        "red": 400.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16702",
+      "station": "EMBALSE DE TERRATEIG",
+      "variable": "CAUDAL SALIDA RÍO VERNISSA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 25.0,
+        "orange": 50.0,
+        "red": 150.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13568",
+      "station": "MC VERNISSA",
+      "variable": "CAUDAL RÍO VERNISSA",
+      "flow_m3s": 0.07,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 50.0,
+        "red": 200.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16699",
+      "station": "EMBALSE DE BENIARRÉS",
+      "variable": "CAUDAL SALIDA RÍO SERPIS",
+      "flow_m3s": 0.82,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 50.0,
+        "red": 75.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "2697",
+      "station": "EA 71 VILLALONGA",
+      "variable": "CAUDAL RÍO SERPIS",
+      "flow_m3s": 1.3,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 50.0,
+        "red": 75.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "14099",
+      "station": "AZUD FONT D'EN CARRÓS",
+      "variable": "CAUDAL RIO SERPIS SOBRE EL AZUD",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 20.0,
+        "orange": 50.0,
+        "red": 150.0
+      },
+      "time": "23:20",
+      "status": "failure",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13566",
+      "station": "MC GALLINERA L'ATZÚBIA",
+      "variable": "CAUDAL RAMBLA GALLINERA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 15.0,
+        "orange": 50.0,
+        "red": 100.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13141",
+      "station": "EMBALSE DE ISBERT",
+      "variable": "CAUDAL SALIDA RÍO GIRONA",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 20.0,
+        "red": 30.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16698",
+      "station": "EMBALSE DE GUADALEST",
+      "variable": "CAUDAL SALIDA RÍO GUADALEST",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 25.0,
+        "red": 60.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "13898",
+      "station": "EMBALSE DE AMADORIO",
+      "variable": "CAUDAL SALIDA RÍO AMADORIO",
+      "flow_m3s": 0.0,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 20.0,
+        "red": 40.0
+      },
+      "time": "23:25",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    },
+    {
+      "id": "16767",
+      "station": "MC SAX",
+      "variable": "CAUDAL RÍO VINALOPÓ",
+      "flow_m3s": 0.01,
+      "thresholds_m3s": {
+        "yellow": 10.0,
+        "orange": 20.0,
+        "red": 30.0
+      },
+      "time": "23:10",
+      "status": "ok",
+      "source": "SAIH-CHJ",
+      "observed": true
+    }
+  ]
+}

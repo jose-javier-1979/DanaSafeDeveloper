@@ -1,0 +1,205 @@
+import json
+import urllib.request
+from pathlib import Path
+from datetime import datetime
+
+BASE = "https://www.aemet.es"
+
+TIMELINE_URL = (
+    BASE
+    + "/es/api-eltiempo/radar/timeline/compo/PB"
+)
+
+TIMELINE = Path(
+    "Data/Radar/AEMET/WebAPI/timeline_compo_PB.json"
+)
+
+OUT = Path(
+    "Data/Radar/AEMET/NationalSequence"
+)
+
+OUT.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+TIMELINE.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+req = urllib.request.Request(
+    TIMELINE_URL,
+    headers={
+        "User-Agent": "Mozilla/5.0"
+    }
+)
+
+with urllib.request.urlopen(
+    req,
+    timeout=30
+) as response:
+    raw = response.read()
+
+data = json.loads(
+    raw.decode("utf-8")
+)
+
+TIMELINE.write_text(
+    json.dumps(
+        data,
+        ensure_ascii=False,
+        indent=2
+    ),
+    encoding="utf-8"
+)
+
+root = (
+    data[0]
+    if isinstance(data, list)
+    else data
+)
+
+elements = root["Elementos"]
+
+def parse_date(e):
+    return datetime.fromisoformat(
+        e["Fecha"]
+    )
+
+elements = sorted(
+    elements,
+    key=parse_date
+)
+
+frames = elements[-10:]
+
+print(
+    "=== DANASAFE: TIMELINE AEMET LIVE ==="
+)
+
+print(
+    "Fotogramas disponibles:",
+    len(elements)
+)
+
+print(
+    "Ultima hora AEMET:",
+    frames[-1]["Fecha"]
+)
+
+print()
+print(
+    "=== DANASAFE: 10 FOTOGRAMAS NACIONALES ==="
+)
+print()
+
+manifest = []
+
+for i, e in enumerate(
+    frames,
+    1
+):
+    fecha = e["Fecha"]
+    filename = e["Nombre fichero"]
+
+    url = (
+        BASE
+        + "/es/api-eltiempo/radar/imagen-radar/compo/"
+        + filename
+    )
+
+    local_name = (
+        f"{i:02d}_{filename}"
+    )
+
+    dst = (
+        OUT /
+        local_name
+    )
+
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent":
+                "Mozilla/5.0"
+        }
+    )
+
+    try:
+        with urllib.request.urlopen(
+            req,
+            timeout=30
+        ) as response:
+            content = response.read()
+
+        dst.write_bytes(
+            content
+        )
+
+        manifest.append({
+            "frame": i,
+            "fecha": fecha,
+            "filename": filename,
+            "local_file": str(dst),
+            "url": url
+        })
+
+        print(
+            f"{i:02d}  "
+            f"{fecha}  "
+            f"{filename}  "
+            f"{len(content)} bytes"
+        )
+
+    except Exception as ex:
+        print(
+            f"{i:02d} ERROR "
+            f"{fecha}: {ex}"
+        )
+
+with open(
+    OUT / "sequence_manifest.json",
+    "w",
+    encoding="utf-8"
+) as f:
+    json.dump(
+        {
+            "provider":
+                "AEMET",
+
+            "product":
+                "Composicion radar",
+
+            "region":
+                "Penbal",
+
+            "frame_interval_minutes":
+                10,
+
+            "bounds": {
+                "west": -16.08,
+                "east": 12.14,
+                "south": 27.22,
+                "north": 51.30
+            },
+
+            "frames":
+                manifest
+        },
+        f,
+        indent=2,
+        ensure_ascii=False
+    )
+
+print()
+print(
+    "Fotogramas descargados:",
+    len(manifest)
+)
+
+print(
+    "Manifest:",
+    OUT /
+    "sequence_manifest.json"
+)
