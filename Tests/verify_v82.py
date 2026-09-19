@@ -31,6 +31,10 @@ check("history health decoding", "historyCyclesVisible" in api and "archivePolic
 check("history surfaced in model", "historyStatus" in model)
 check("history surfaced in Tools", 'LabeledContent("R2 histórico"' in content)
 check("8.2 data contract UI", 'Section("Version 8.2 data contract")' in content)
+check("UI tests skip startup network", 'arguments.contains("--ui-testing")' in content and 'arguments.contains("--ui-testing")' in nowcast_view)
+check("stable help dismiss identifier", 'nowcast.help.dismiss' in nowcast_view and 'nowcast.help.dismiss' in ui_tests)
+check("CI launch performance skipped", 'XCTSkip' in ui_tests and 'environment["CI"]' in ui_tests)
+check("single launch smoke configuration", 'runsForEachTargetApplicationUIConfiguration: Bool { false }' in launch_tests)
 
 check("R2 history prefix", 'const HISTORY_PREFIX = "history/cycles";' in worker)
 check("archive-before-live policy", 'archive_policy: "archive-before-live"' in worker)
@@ -57,11 +61,11 @@ check("container raw frame endpoint", 'path == "/archive/frame"' in server)
 check("target timestamp propagated", 'env["DANASAFE_TARGET_TIMESTAMP"] = target_timestamp' in server)
 check("raw SHA256 emitted", '"x-danasafe-sha256": hashlib.sha256(raw).hexdigest()' in server)
 
-combined = "\n".join([worker, server, api, model, content])
+combined = "\n".join([worker, server, api, model, content, nowcast_view, ui_tests, launch_tests])
 check("Google Drive not in critical path", "drive.google.com" not in combined and "GoogleDrive" not in combined)
 
 # Guard against accidentally shipping the old app version in user-visible/runtime strings.
-check("no stale 8.1 runtime strings", "DanaSafe-iOS/8.1" not in combined and "Actualización 8.1" not in combined)
+check("no stale 8.1 runtime strings", "DanaSafe-iOS/8.1" not in combined and "Actualización 8.1" not in combined and "DanaSafe 8.1" not in combined)
 
 if errors:
     print("DANASAFE 8.2 VERIFY 1: FAIL")
