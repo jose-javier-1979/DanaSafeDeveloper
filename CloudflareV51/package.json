@@ -1,13 +1,13 @@
 {
   "name": "danasafe-cloudflare-v51",
   "private": true,
-  "version": "8.2.0-history.1",
+  "version": "5.1.0-baseline.1",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "tail": "wrangler tail",
-    "typecheck": "tsc -p tsconfig.ci.json"
+    "typecheck": "tsc --noEmit --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM ../Tests/cloudflare-stubs.d.ts src/index.ts"
   },
   "dependencies": {
     "@cloudflare/containers": "^0.2.0"
