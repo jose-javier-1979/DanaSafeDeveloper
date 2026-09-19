@@ -1,0 +1,121 @@
+name: DanaSafe 8.2 Final Verification
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: danasafe82-final-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Two independent verifications
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python syntax
+        run: python3 -m compileall -q Engine Tests Tools CloudflareV51/container
+
+      - name: Verification 1 — implementation integrity
+        run: python3 Tests/verify_v82.py
+
+      - name: Verification 2 — retention contract
+        run: python3 Tests/verify_v82_independent.py
+
+      - name: Cloudflare TypeScript
+        run: |
+          cd CloudflareV51
+          npm install
+          npm run typecheck
+
+      - name: Canonical nowcast smoke
+        run: |
+          python3 Engine/Scripts/build_nowcast_v6.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("Engine/Data/Radar/AEMET/NationalSequence/Processed/radar_nowcast_v6.json")
+          d=json.loads(p.read_text())
+          assert d["track_count"] == 9
+          print("CANONICAL NOWCAST: PASS — 9 tracks")
+          PY
+
+  xcode:
+    name: Release build + focused tests
+    runs-on: macos-26
+    needs: verify
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Release build
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project DanaSafeDeveloper.xcodeproj \
+            -scheme DanaSafeDeveloper \
+            -configuration Release \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tee DanaSafe-82-Release.log
+
+      - name: Select and boot simulator
+        id: sim
+        run: |
+          set -e
+          UDID="$(
+            xcrun simctl list devices available |
+            awk '/iPhone 17 Pro \(/ {
+              gsub(/[()]/, "")
+              for (i = 1; i <= NF; i++) {
+                if ($i ~ /^[0-9A-Fa-f-]{36}$/) {
+                  print $i
+                  exit
+                }
+              }
+            }'
+          )"
+          test -n "$UDID"
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+
+      - name: Unit tests
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project DanaSafeDeveloper.xcodeproj \
+            -scheme DanaSafeDeveloper \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            CODE_SIGNING_ALLOWED=NO \
+            -only-testing:DanaSafeDeveloperTests \
+            | tee DanaSafe-82-Unit.log
+
+      - name: Functional UI test
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project DanaSafeDeveloper.xcodeproj \
+            -scheme DanaSafeDeveloper \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            CODE_SIGNING_ALLOWED=NO \
+            -only-testing:DanaSafeDeveloperUITests/DanaSafeDeveloperUITests/testPrimaryNavigationAndNowcastHelp \
+            | tee DanaSafe-82-UI.log
+
+      - name: Upload verification logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DanaSafe-82-final-verification
+          path: |
+            DanaSafe-82-Release.log
+            DanaSafe-82-Unit.log
+            DanaSafe-82-UI.log
+          if-no-files-found: ignore
