@@ -20,6 +20,7 @@ final class DanaSafeModel: ObservableObject {
     @Published var cloudflareHealth: String = "Not checked"
     @Published var cloudflareVersion: String?
     @Published var latestAEMETInfo: String = "Not checked"
+    @Published var historyStatus: String = "Not checked"
     @Published var isRefreshing = false
     @Published var refreshProgress: String = "Idle"
     @Published var nowcast: RadarNowcastFile?
@@ -124,7 +125,7 @@ final class DanaSafeModel: ObservableObject {
         }
     }
 
-    /// DanaSafe 8.1 refresh path over the unchanged production Worker. The current Worker returns a synchronous HTTP 200 snapshot; the client also preserves compatibility with HTTP 202 queued/processing responses.
+    /// DanaSafe 8.2 refresh path over the unchanged production Worker. The current Worker returns a synchronous HTTP 200 snapshot; the client also preserves compatibility with HTTP 202 queued/processing responses.
     /// When a 202 response is received, we poll /radar/refresh-status and download the atomic R2 snapshot only after ready.
     /// A newer AEMET slot appearing while the engine works no longer causes the newly
     /// generated valid snapshot to be discarded by the client.
@@ -190,7 +191,7 @@ final class DanaSafeModel: ObservableObject {
         } catch {
             cloudflareHealth = "Refresh failed"
             refreshProgress = "Failed"
-            errorMessage = "Actualización 8.1: \(error.localizedDescription)"
+            errorMessage = "Actualización 8.2: \(error.localizedDescription)"
             // Never destroy the last validated snapshot on failure.
         }
     }
@@ -254,6 +255,13 @@ final class DanaSafeModel: ObservableObject {
             cloudflareHealth = "Online · \(health.status) · \(sync)"
             if let radar = health.radarTimestamp { cloudflareHealth += " · radar \(radar)" }
             if let latest = health.latestAemetTimestamp { latestAEMETInfo = latest }
+            if health.historyEnabled == true {
+                let cycles = health.historyCyclesVisible ?? 0
+                let policy = health.archivePolicy ?? "archive-before-live"
+                historyStatus = "ON · \(cycles) ciclos · \(policy)"
+            } else {
+                historyStatus = "OFF"
+            }
         } catch {
             cloudflareHealth = "Unavailable · \(error.localizedDescription)"
         }
@@ -284,7 +292,7 @@ final class DanaSafeModel: ObservableObject {
             nowcast = NowcastBuilderV7.build(from: snapshot.radar)
             nowcastSource = nowcast == nil
                 ? "Unavailable · insufficient live radar history"
-                : "DanaSafe 8.1 on-device · snapshot de producción"
+                : "DanaSafe 8.2 on-device · snapshot de producción"
         }
         threatAssessments = []
         if let target = lastNowcastTarget, let nowcast {
