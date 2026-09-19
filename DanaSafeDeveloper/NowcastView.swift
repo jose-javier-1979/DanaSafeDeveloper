@@ -11,7 +11,7 @@ struct NowcastView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("DanaSafe 8.1 · nowcast vivo") {
+                Section("DanaSafe 8.2 · nowcast vivo") {
                     LabeledContent("Radar", value: model.nowcast?.radarTimestamp ?? "Sin nowcast disponible")
                     LabeledContent("Fuente", value: model.nowcastSource)
                     LabeledContent("Tracks", value: "\(model.nowcast?.trackCount ?? 0)")
@@ -117,7 +117,7 @@ struct NowcastView: View {
                         Task { _ = await notificationManager.requestAuthorization() }
                     }
                     .accessibilityIdentifier("nowcast.notifications")
-                    Text("DanaSafe 8.1 genera avisos locales tras evaluar una trayectoria real del radar. El cálculo de ubicación se realiza en el iPhone; el Worker no recibe tu GPS.")
+                    Text("DanaSafe 8.2 genera avisos locales tras evaluar una trayectoria real del radar. El cálculo de ubicación se realiza en el iPhone; el Worker no recibe tu GPS.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -135,6 +135,7 @@ struct NowcastView: View {
                 DanaSafeNowcastHelpView(model: model, forecast: precipitationForecast)
             }
             .task {
+                guard !ProcessInfo.processInfo.arguments.contains("--ui-testing") else { return }
                 await notificationManager.refreshAuthorizationStatus()
                 // Lightweight live polling: never starts the expensive backend engine.
                 // It only reads the latest atomic snapshot already published by the production Worker.
@@ -188,7 +189,7 @@ private struct DanaSafeNowcastHelpView: View {
         NavigationStack {
             List {
                 Section("Qué está viendo DanaSafe") {
-                    Text("DanaSafe 8.1 mantiene el Worker de producción validado. El Worker entrega el snapshot radar validado; si no incluye nowcast, el iPhone calcula el movimiento a partir de los diez frames de ese mismo snapshot.")
+                    Text("DanaSafe 8.2 mantiene el Worker de producción validado. El Worker entrega el snapshot radar validado; si no incluye nowcast, el iPhone calcula el movimiento a partir de los diez frames de ese mismo snapshot.")
                     LabeledContent("Endpoint", value: "danasafe-radar.firefritz.workers.dev")
                     LabeledContent("Radar", value: model.nowcast?.radarTimestamp ?? model.selectedFrame?.timestamp ?? "—")
                     LabeledContent("Fuente", value: model.nowcastSource)
@@ -219,6 +220,7 @@ private struct DanaSafeNowcastHelpView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("OK") { dismiss() }
+                        .accessibilityIdentifier("nowcast.help.dismiss")
                 }
             }
         }

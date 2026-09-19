@@ -1,0 +1,9 @@
+.git
+**/.git
+**/__pycache__
+**/*.pyc
+**/.DS_Store
+**/*.zip
+**/node_modules
+**/.wrangler
+RadarNowcastEngineV1*

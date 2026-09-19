@@ -79,11 +79,21 @@ jobs:
 
       - name: Python syntax validation
         run: |
-          python3 -m compileall -q Engine Tests Tools CloudflareV51/container
+          python3 -m compileall -q Engine Tests Tools CloudflareV82/container
 
-      - name: DanaSafe 8.1 verifier
+      - name: DanaSafe 8.2 archive verifier
         run: |
-          python3 Tests/verify_v81.py
+          python3 Tests/verify_v82.py
+
+      - name: DanaSafe 8.2 independent retention verification
+        run: |
+          python3 Tests/verify_v82_independent.py
+
+      - name: Cloudflare TypeScript typecheck
+        run: |
+          cd CloudflareV82
+          npm install
+          npm run typecheck
 
       - name: Create Python virtual environment
         run: |
@@ -159,7 +169,7 @@ jobs:
           open -a Simulator || true
           xcrun simctl bootstatus "${{ steps.sim.outputs.udid }}" -b
 
-      - name: Run tests
+      - name: Unit tests
         run: |
           set -o pipefail
 
@@ -168,7 +178,22 @@ jobs:
             -scheme DanaSafeDeveloper \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             CODE_SIGNING_ALLOWED=NO \
+            -only-testing:DanaSafeDeveloperTests \
             | tee DanaSafe-CI-Tests.log
+
+      - name: Simulator install and launch smoke
+        run: |
+          set -e
+          xcrun simctl boot "${{ steps.sim.outputs.udid }}" || true
+          xcrun simctl bootstatus "${{ steps.sim.outputs.udid }}" -b
+          APP_PATH="$(find "$HOME/Library/Developer/Xcode/DerivedData" -path '*/Build/Products/Release-iphonesimulator/DanaSafeDeveloper.app' -print -quit)"
+          test -n "$APP_PATH"
+          echo "Installing $APP_PATH"
+          xcrun simctl install "${{ steps.sim.outputs.udid }}" "$APP_PATH"
+          xcrun simctl get_app_container "${{ steps.sim.outputs.udid }}" com.firefritz.DanaSafeDeveloperV82 app
+          xcrun simctl launch "${{ steps.sim.outputs.udid }}" com.firefritz.DanaSafeDeveloperV82 --ui-testing | tee DanaSafe-CI-Launch.log
+          sleep 5
+          xcrun simctl terminate "${{ steps.sim.outputs.udid }}" com.firefritz.DanaSafeDeveloperV82 || true
 
       - name: Upload logs
         if: always()
@@ -178,4 +203,5 @@ jobs:
           path: |
             DanaSafe-CI-Release.log
             DanaSafe-CI-Tests.log
+            DanaSafe-CI-Launch.log
           if-no-files-found: ignore

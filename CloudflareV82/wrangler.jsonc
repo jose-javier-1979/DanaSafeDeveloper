@@ -1,0 +1,35 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "danasafe-radar-v82-candidate",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-19",
+  "workers_dev": true,
+  "r2_buckets": [
+    {
+      "binding": "SNAPSHOTS",
+      "bucket_name": "danasafe-radar-v82-candidate"
+    }
+  ],
+  "containers": [
+    {
+      "max_instances": 1,
+      "class_name": "DanaSafeEngine",
+      "image": "./Dockerfile",
+      "image_build_context": ".."
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "DANASAFE_ENGINE",
+        "class_name": "DanaSafeEngine"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["DanaSafeEngine"]
+    }
+  ]
+}

@@ -18,6 +18,10 @@ struct DanaSafeBackendHealth: Decodable {
     let refreshTargetTimestamp: String?
     let refreshError: String?
     let aemetError: String?
+    let historyEnabled: Bool?
+    let historyCyclesVisible: Int?
+    let historyLatestTimestamp: String?
+    let archivePolicy: String?
 }
 
 struct DanaSafeAEMETLatestInfo: Decodable {
@@ -100,7 +104,7 @@ struct DanaSafeAPIClient {
         return data
     }
 
-    /// DanaSafe 8.1 keeps the validated production synchronous/asynchronous compatibility contract.
+    /// DanaSafe 8.2 keeps the validated production synchronous/asynchronous compatibility contract.
     /// Production 5.2.1 may return either:
     /// - HTTP 200 + a complete atomic snapshot when no asynchronous work is required, or
     /// - HTTP 202 + an accepted/queued envelope which must be followed via /radar/refresh-status.
@@ -128,7 +132,7 @@ struct DanaSafeAPIClient {
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("no-store, no-cache", forHTTPHeaderField: "Cache-Control")
-        request.setValue("DanaSafe-iOS/8.1-worker64-nowcast-local", forHTTPHeaderField: "User-Agent")
+        request.setValue("DanaSafe-iOS/8.2-history-r2", forHTTPHeaderField: "User-Agent")
 
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let http = response as? HTTPURLResponse else { throw DanaSafeAPIError.invalidResponse }
