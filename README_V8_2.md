@@ -28,3 +28,13 @@ Archived cycles can be listed and individual snapshots, manifests, and raw frame
 6. Retrieve its manifest and all 10 raw frames and verify hashes/metadata.
 
 Do not consider historical retention operational until steps 3–6 have passed against the production R2 bucket.
+
+## Optional Google Drive / local export
+
+R2 remains the authoritative live archive. For a secondary human-browsable copy, run:
+
+```sh
+python3 Tools/export_r2_history.py --output "/path/to/Google Drive/DanaSafe Radar History"
+```
+
+The exporter downloads each completed cycle, writes its snapshot, manifest and ten raw frames, recalculates SHA-256 for every frame, checks the manifest hash/byte count and writes `verification.json`. A failed integrity check aborts that cycle instead of silently copying corrupted data.
